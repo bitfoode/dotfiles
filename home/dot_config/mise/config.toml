@@ -1,0 +1,71 @@
+[tools]
+age = "latest"
+argocd = "latest"
+awscli = "latest"
+bat = "latest"
+bat-extras = "latest"
+dagger = "latest"
+delta = "latest"
+dive = "latest"
+dust = "latest"
+fzf = "latest"
+fd = "latest"
+ghorg = "latest"
+git-cliff = "latest"
+glow = "latest"
+go = "latest"
+golangci-lint = "latest"
+hadolint = "latest"
+helm = "latest"
+jq = "latest"
+k9s = "latest"
+kube-linter = "latest"
+kustomize = "latest"
+kubectl = "latest"
+kubectx = "latest"
+lazygit = "latest"
+neovim = "latest"
+node = "lts"
+python = "latest"
+sqlite = "latest"
+restic = "latest"
+ripgrep = "latest"
+rust = "latest"
+sd = "latest"
+sops = "latest"
+stern = "latest"
+trivy = "latest"
+uv = "latest"
+velero = "latest"
+yq = "latest"
+yt-dlp = "latest"
+zoxide = "latest"
+# Installed via go install
+"ubi:kopia/kopia" = "latest"
+"ubi:gokcehan/lf" = "latest"
+"ubi:tealdeer-rs/tealdeer" = "latest"
+"ubi:cantino/mcfly" = "latest"
+"ubi:nickgerace/gfold" = "latest"
+"pipx:trash-cli" = "latest"
+ansible-core = { version = "latest", uvx_args = "--with ansible --with ansible-lint" }
+ubi = "latest"
+cargo = "latest"
+"cargo:eza" = "latest"
+"cargo:rustscan" = "latest"
+cosign = "latest"
+mc = "latest"
+chezmoi = "latest"
+slsa-verifier = "latest"
+
+[settings]
+# enable exeperimental options, mainly for using go, ubi pipx bacend
+experimental = true
+# configure the directories outside of HOME
+rust.rustup_home = "~/.local/share/mise/rustup"
+rust.cargo_home = "~/.local/share/mise/cargo"
+# Using uvx backend instead of pipx
+pipx.uvx = true
+# Trust all paths in ~/git
+trusted_config_paths = [
+    "~/git",
+]

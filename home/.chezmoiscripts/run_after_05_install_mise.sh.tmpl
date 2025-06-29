@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+function get_mise_version() {
+  MISE_VERSION="$(mise version -J | grep 'version' | cut -d '"' -f 4)"
+  echo "$MISE_VERSION"
+}
+
+echo "MISE | Running install 'mise' script"
+if [[ ! -f ~/.local/bin/mise ]]; then
+  echo "MISE | 'mise' not availabel hence installing it"
+  install_sh_url='{{ gitHubLatestReleaseAssetURL "jdx/mise" "install.sh" }}'
+  tmpdir=$(mktemp -d)
+
+  trap 'rm -rf ${tmpdir}' EXIT
+
+  if ! command -v curl &> /dev/null; then
+    echo "'curl' not installed"
+    exit 1
+  fi
+
+  cd "$tmpdir"
+  curl -fsSL -o install.sh "$install_sh_url"
+
+  chmod +x install.sh
+
+  ./install.sh
+
+  echo "MISE | Installed 'mise' version $(get_mise_version)"
+else
+  echo "MISE | 'mise' already installed in verison $(get_mise_version)"
+fi
+
+
+# Install all dependecies
+CURRENT_SHELL=$(ps -p $$ -o comm=)
+eval "$(~/.local/bin/mise activate "$CURRENT_SHELL")"
+
+echo "MISE | Installing global tools"
+echo "MISE | See ~/.config/mise/config.toml"
+MISE_INSTALL=$(~/.local/bin/mise install 2>&1)
+echo "MISE | Install output: ${MISE_INSTALL}"
+echo "MISE | Installing finished"
