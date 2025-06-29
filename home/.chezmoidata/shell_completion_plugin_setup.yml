@@ -1,0 +1,11 @@
+shells:
+  - zsh
+  - bash
+
+shell_completions:
+  mise:
+    args: "completion"
+
+shell_plugins:
+  mise:
+    args: activate

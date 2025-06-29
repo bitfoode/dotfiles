@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+{{- $shells := .shells }}
+{{- $completions := .shell_completions }}
+{{- $plugins := .shell_plugins }}
+
+set -eo pipefail
+echo "SHELL | Start shell completions and plugin installation"
+
+CONFIG_DIR=${XDG_CONFIG_HOME:-"~/.config"}
+echo "SHELL | Using ${CONFIG_DIR} as configuration directory"
+
+echo "SHELL | Generating shell completions"
+{{ range $shell := $shells}}
+mkdir -p "$CONFIG_DIR"/{{ $shell }}/completions
+mkdir -p "$CONFIG_DIR"/{{ $shell }}/plugins
+{{ end }}
+# Generate completions
+{{ range $key, $value := $completions -}}
+{{ range $shell := $shells -}}
+{{ $key }} {{ $value.args }} {{ $shell }} > "$CONFIG_DIR"/{{ $shell }}/completions/_{{ $key }}.sh
+{{ end }}
+{{ end -}}
+echo "SHELL | Completions generation finished"
+
+# Generate plugin files, like activations etc.
+echo "SHELL | Install shell plugins"
+{{ range $key, $value := $plugins -}}
+{{ range $shell := $shells -}}
+{{ $key }} {{ $value.args }} {{ $shell }} > "$CONFIG_DIR"/{{ $shell }}/plugins/{{$key}}.sh
+{{ end }}
+{{ end -}}
+echo "SHELL | Plugin installation finished"
