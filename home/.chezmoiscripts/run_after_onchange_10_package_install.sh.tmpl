@@ -1,0 +1,24 @@
+#!/bin/bash
+
+{{ if eq .chezmoi.os "darwin" -}}
+  {{ if .packages.darwin.brews -}}
+    echo "PACKAGES | Installing brew packages"
+    brew install --quiet {{ .packages.darwin.brews | join " " }}
+  {{ end -}}
+  {{ if .packages.darwin.casks -}}
+    echo "PACKAGES | Installing cask packages"
+    brew install --quiet --cask {{ .packages.darwin.casks | join " " }}
+  {{ end -}}
+{{ else if eq .chezmoi.os "linux" -}}
+  {{ if (eq .chezmoi.osRelease.id "fedora") and (.packages.fedora) -}}
+    echo "PACKAGES | Fedora {{ .chezmoi.osRelease.versionID }} detected"
+    echo "PACKAGES | Installing packages with dnf"
+    dnf install -y {{ .packages.fedora | join " " }}
+  {{ end -}}
+
+  {{ if .packages.flatpak }}
+    flatpak install {{ .packages.flatpak | join " " }}
+  {{ end -}}
+
+{{ end -}}
+
