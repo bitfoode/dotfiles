@@ -21,6 +21,8 @@ shell_completions:
     args: "completion"
   kubectl:
     args: "completion"
+  k9s:
+    args: "completion"
 
 shell_plugins:
   mise:
