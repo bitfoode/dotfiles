@@ -17,6 +17,8 @@ autoload -U colors && colors
 [ -f "$XDG_CONFIG_HOME"/zsh/aliases.zsh ] && source "$XDG_CONFIG_HOME"/zsh/aliases.zsh
 [ -f "$XDG_CONFIG_HOME"/zsh/plugins.zsh ] && source "$XDG_CONFIG_HOME"/zsh/plugins.zsh
 [ -f "$XDG_CONFIG_HOME"/zsh/completions.zsh ] && source "$XDG_CONFIG_HOME"/zsh/completions.zsh
+[ -f "$XDG_CONFIG_HOME"/zsh/work.zsh ] && source "$XDG_CONFIG_HOME"/zsh/work.zsh
+
 
 # Source plugins installed from other tools like eza, mcfly etc.
 if [[ -d "$XDG_CONFIG_HOME"/zsh/plugins ]]; then
