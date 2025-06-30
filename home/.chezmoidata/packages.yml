@@ -1,0 +1,19 @@
+
+packages:
+  darwin:
+    brews:
+      # Shell specific packages
+      - git
+      - bash
+      - bash-completion
+      - zsh
+    casks: []
+  fedora:
+  # Shell specific packages
+  - git
+  - glibc-langpack-en
+  - glibc-langpack-de
+  - bash
+  - bash-completion
+  - zsh
+

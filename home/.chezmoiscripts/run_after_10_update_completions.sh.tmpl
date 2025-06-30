@@ -30,3 +30,10 @@ echo "SHELL | Install shell plugins"
 {{ end }}
 {{ end -}}
 echo "SHELL | Plugin installation finished"
+
+echo "SHELL | Running 'compinit' to initialize completions"
+if [[ -f "$XDG_STATE_HOME/zsh/zcompdump" ]]; then
+  rm -f "$XDG_STATE_HOME/zsh/zcompdump"
+fi
+# Rerun compinit
+zsh -c 'autoload -Uz compinit && compinit'

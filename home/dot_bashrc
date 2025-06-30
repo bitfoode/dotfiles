@@ -1,0 +1,50 @@
+# shellcheck disable=SC2148
+# Commands that should be applied only for interactive shells.
+[[ $- == *i* ]] || return
+
+# Source global bashrc
+[[ -r /etc/bashrc ]] && source /etc/bashrc
+
+# include .profile if it exists
+[[ -f "$HOME/.profile" ]] && . "$HOME/.profile"
+
+HISTCONTROL=erasedups:ignoredups:ignorespace
+HISTFILE="$XDG_CACHE_HOME/bash_history"
+
+shopt -s histappend
+shopt -s checkwinsize
+shopt -s extglob
+shopt -s globstar
+shopt -s checkjobs
+
+# Source bash completions
+if [[ -r /etc/profile.d/bash_completion.sh ]]; then
+  # shellcheck source=/dev/null
+  source /etc/profile.d/bash_completion.sh
+elif [[ -r /opt/homebrew/etc/profile.d/bash_completion.sh ]]; then
+  # shellcheck source=/dev/null
+  source /opt/homebrew/etc/profile.d/bash_completion.sh
+fi
+
+# shellcheck disable=SC1091
+[ -f "$XDG_CONFIG_HOME"/zsh/exports.zsh ] && source "$XDG_CONFIG_HOME"/zsh/exports.zsh
+# shellcheck disable=SC1091
+[ -f "$XDG_CONFIG_HOME"/zsh/aliases.zsh ] && source "$XDG_CONFIG_HOME"/zsh/aliases.zsh
+
+# Source bash completions for external tooling
+if [[ -d $XDG_CONFIG_HOME/bash/completions ]]; then
+  # shellcheck disable=SC2044
+  for file in $(find "$XDG_CONFIG_HOME/bash/completions/" -type f \( -iname "*.sh" -or -iname "*.bash" \)); do
+    # shellcheck source=/dev/null
+    source "$file"
+  done
+fi
+
+# Source plugins installed from other tools like eza, mcfly etc.
+if [[ -d $XDG_CONFIG_HOME/bash/plugins ]]; then
+  # shellcheck disable=SC2044
+  for file in $(find "$XDG_CONFIG_HOME/bash/plugins/" \( -type f -o -type l \) \( -iname "*.sh" -or -iname "*.bash" \)); do
+    # shellcheck source=/dev/null
+    source "$file"
+  done
+fi

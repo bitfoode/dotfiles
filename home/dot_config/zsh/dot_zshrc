@@ -1,0 +1,28 @@
+typeset -U path cdpath fpath manpath
+
+# Some Special options
+zstyle ':completion:*' completer _expand _complete _ignored _approximate
+zstyle ':completion:*' special-dirs true
+zstyle ':completions:*' cache-path "$XDG_CACHE_HOME"/.zcompcache-"$ZSH_VERSION"
+# Make zsh now about ssh accessed hosts
+zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
+
+# Load colors into shell for colored-man-pages.plugin.zsh
+autoload -U colors && colors
+
+# shellcheck source=$XDG_CONFIG_HOME/.config/zsh/exports.zsh
+[ -f "$XDG_CONFIG_HOME"/zsh/exports.zsh ] && source "$XDG_CONFIG_HOME"/zsh/exports.zsh
+[ -f "$XDG_CONFIG_HOME"/zsh/options.zsh ] && source "$XDG_CONFIG_HOME"/zsh/options.zsh
+[ -f "$XDG_CONFIG_HOME"/zsh/bindings.zsh ] && source "$XDG_CONFIG_HOME"/zsh/bindings.zsh
+[ -f "$XDG_CONFIG_HOME"/zsh/aliases.zsh ] && source "$XDG_CONFIG_HOME"/zsh/aliases.zsh
+[ -f "$XDG_CONFIG_HOME"/zsh/plugins.zsh ] && source "$XDG_CONFIG_HOME"/zsh/plugins.zsh
+[ -f "$XDG_CONFIG_HOME"/zsh/completions.zsh ] && source "$XDG_CONFIG_HOME"/zsh/completions.zsh
+
+# Source plugins installed from other tools like eza, mcfly etc.
+if [[ -d "$XDG_CONFIG_HOME"/zsh/plugins ]]; then
+  # shellcheck disable=SC2044
+  for file in $(find "$XDG_CONFIG_HOME"/zsh/plugins/ -maxdepth 1 \( -type f -o -type l \) \( -iname "*.sh" -o -iname "*.zsh" \)); do
+    # shellcheck source=/dev/null
+    source "$file"
+  done
+fi

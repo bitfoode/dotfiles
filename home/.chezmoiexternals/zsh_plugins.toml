@@ -1,0 +1,12 @@
+{{ range $name, $opts := .zsh_plugins.git_repos -}}
+[".config/zsh/plugins/{{ $name }}"]
+type = "git-repo"
+url = "{{ $opts.repo_url }}"
+clone.args = ["--depth", "1", "--branch", "{{ $opts.ref }}"]
+{{ end -}}
+
+{{ range $name, $opts := .zsh_plugins.files -}}
+[".config/zsh/plugins/{{ $name }}"]
+type = "file"
+url = "{{ $opts.repo_url }}"
+{{ end -}}
