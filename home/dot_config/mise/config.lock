@@ -117,6 +117,10 @@ backend = "aqua:kubernetes/kubectl"
 version = "0.9.5"
 backend = "aqua:ahmetb/kubectx"
 
+[tools.kubens]
+version = "0.9.5"
+backend = "aqua:ahmetb/kubectx/kubens"
+
 [tools.kustomize]
 version = "5.6.0"
 backend = "aqua:kubernetes-sigs/kustomize"
