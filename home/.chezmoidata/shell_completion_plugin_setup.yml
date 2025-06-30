@@ -13,6 +13,14 @@ shell_completions:
     args: "completion"
   fd:
     args: "--gen-completions"
+  delta:
+    args: "--generate-completion"
+  glow:
+    args: "completion"
+  kube-linter:
+    args: "completion"
+  kubectl:
+    args: "completion"
 
 shell_plugins:
   mise:
