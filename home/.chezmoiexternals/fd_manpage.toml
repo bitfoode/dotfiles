@@ -1,0 +1,3 @@
+[".local/share/man/man1/fd.1"]
+type = "file"
+url = "https://raw.githubusercontent.com/sharkdp/fd/refs/tags/{{ (gitHubLatestTag "sharkdp/fd").Name }}/doc/fd.1"

@@ -7,6 +7,12 @@ shell_completions:
     args: "completion"
   chezmoi:
     args: "completion"
+  argocd:
+    args: "completion"
+  dive:
+    args: "completion"
+  fd:
+    args: "--gen-completions"
 
 shell_plugins:
   mise:
