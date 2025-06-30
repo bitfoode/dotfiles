@@ -1,0 +1,15 @@
+[".config/zsh/completions/_kubectx.sh"]
+type = "file"
+url = 'https://raw.githubusercontent.com/ahmetb/kubectx/refs/tags/{{ (gitHubLatestTag "ahmetb/kubectx").Name }}/completion/_kubectx.zsh'
+
+[".config/bash/completions/_kubectx.sh"]
+type = "file"
+url = 'https://raw.githubusercontent.com/ahmetb/kubectx/refs/tags/{{ (gitHubLatestTag "ahmetb/kubectx").Name }}/completion/kubectx.bash'
+
+[".config/zsh/completions/_kubens.sh"]
+type = "file"
+url = 'https://raw.githubusercontent.com/ahmetb/kubectx/refs/tags/{{ (gitHubLatestTag "ahmetb/kubectx").Name }}/completion/_kubens.zsh'
+
+[".config/bash/completions/_kubens.sh"]
+type = "file"
+url = 'https://raw.githubusercontent.com/ahmetb/kubectx/refs/tags/{{ (gitHubLatestTag "ahmetb/kubectx").Name }}/completion/kubens.bash'
