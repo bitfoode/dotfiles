@@ -1,0 +1,7 @@
+{{ $manpages := list "fzf.1" "fzf-tmux.1" -}}
+{{ range $manpages }}
+[".local/share/man/man1/{{ . }}"]
+type = "file"
+url = "https://raw.githubusercontent.com/junegunn/fzf/refs/tags/{{ (gitHubLatestTag "junegunn/fzf").Name }}/man/man1/{{ . }}"
+{{ end -}}
+

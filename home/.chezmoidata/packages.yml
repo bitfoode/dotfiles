@@ -7,6 +7,18 @@ packages:
       - bash
       - bash-completion
       - zsh
+      # fzf preview packages
+      - gzip
+      - xz
+      - unzip
+      - binutils # nm
+      - libcdio # iso-info
+      - odt2txt
+      - gnu-tar
+      - 7-zip
+      - transmission-cli
+      - exiftool
+      - imagemagick
     casks: []
   fedora:
   # Shell specific packages
@@ -16,4 +28,24 @@ packages:
   - bash
   - bash-completion
   - zsh
+  # fzf preview packages
+  - gzip
+  - xz
+  - unzip
+  - binutils # nm
+  - libcdio # iso-info
+  - odt2txt
+  - tar
+  - p7zip-plugins # 7zip
+  - p7zip # 7zip
+  - transmission-common # transmission-show
+  - catdoc # convert doc files
+  - w3m # show html files
+  - perl-Image-ExifTool # exiftool
+  - poppler-utils
+  - ImageMagick
+  - unrar
+  - gnumeric # ssconvert
+  - chafa # ImageToText converter
+  - mcomix3-thumbnailer
 
