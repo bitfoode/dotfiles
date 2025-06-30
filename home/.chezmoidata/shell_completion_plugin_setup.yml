@@ -5,6 +5,8 @@ shells:
 shell_completions:
   mise:
     args: "completion"
+  chezmoi:
+    args: "completion"
 
 shell_plugins:
   mise:
