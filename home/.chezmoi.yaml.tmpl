@@ -1,14 +1,7 @@
-{{ $name := promptStringOnce . "name" "What is your name: "}}
-{{ $lastname := promptStringOnce . "lastname" "What is your lastname: "}}
-{{ $email := promptStringOnce . "email" "What is your email address: " }}
-{{ $workEmail := promptStringOnce . "workEmail" "What is your work email address: " }}
-
-data:
-  name: {{ $name | quote }}
-  lastname: {{ $lastname | quote }}
-  email: {{ $email | quote }}
-  work_email: {{ $workEmail | quote }}
-
+{{ $name := promptStringOnce . "name" "What is your name: " -}}
+{{ $lastname := promptStringOnce . "lastname" "What is your lastname: " -}}
+{{ $email := promptStringOnce . "email" "What is your email address: " -}}
+{{ $work_email := promptStringOnce . "work_email" "What is your work email address: " -}}
 encryption: age
 format: yaml
 progress: true
@@ -17,3 +10,10 @@ git:
   autoAdd: true
 diff:
   scriptContents: false
+
+data:
+  name: {{ $name | quote }}
+  lastname: {{ $lastname | quote }}
+  email: {{ $email | quote }}
+  work_email: {{ $work_email | quote }}
+
