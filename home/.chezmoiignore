@@ -1,0 +1,6 @@
+# exclude some configuration when not
+# on a machine related to the work
+{{ if ne .work true }}
+.config/bku
+.config/zsh/work.zsh
+{{ end }}

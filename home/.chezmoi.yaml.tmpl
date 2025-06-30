@@ -3,6 +3,11 @@
 {{ $email := promptStringOnce . "email" "What is your email address: " -}}
 {{ $work_email := promptStringOnce . "work_email" "What is your work email address: " -}}
 encryption: age
+age:
+  identities:
+    - {{ .chezmoi.sourceDir }}/../secrets/keyfile.txt
+  recipients:
+    - age1fxhzs2r9e5fv40reth84udg58gwcfcdfz4fq4avpem427fqp4yys0q48kr
 format: yaml
 progress: true
 secrets: error
