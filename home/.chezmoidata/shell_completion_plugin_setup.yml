@@ -29,6 +29,8 @@ shell_completions:
     args: "completion"
   velero:
     args: "completion"
+  yq:
+    args: "completion"
 
 shell_plugins:
   mise:

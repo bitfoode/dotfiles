@@ -1,0 +1,5 @@
+[".local/share/man/man1/yq.1"]
+type = "file"
+url = '{{ gitHubLatestReleaseAssetURL "mikefarah/yq" "yq_man_page_only.tar.gz"}}'
+
+
