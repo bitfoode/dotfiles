@@ -29,11 +29,14 @@ fpath+="$HOME/.config/zsh/plugins/powerlevel10k-config"
 # Oh-My-Zsh/Prezto calls compinit during initialization,
 # calling it twice causes slight start up slowdown
 # as all $fpath entries will be traversed again.
+# Export different completion directory
+export ZSH_COMPLETION_DUMP=$XDG_STATE_HOME/zsh/zcompdump
+mkdir -p "$(dirname "$ZSH_COMPLETION_DUMP")"
 autoload -Uz compinit
-for dump in "$XDG_STATE_HOME"/zsh/zcompdump(N.mh+24); do
-  compinit
+for dump in $ZSH_COMPLETION_DUMP(N.mh+24); do
+  compinit -d $ZSH_COMPLETION_DUMP
 done
-compinit -C
+compinit -d $ZSH_COMPLETION_DUMP -C
 
 if [[ -f "$HOME/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh" ]]; then
   source "$HOME/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh"

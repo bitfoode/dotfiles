@@ -2,8 +2,6 @@
 export HISTSIZE=100000 # Nearly infinite history; essential to building a cli 'library' to use with fzf/etc
 export SAVEHIST=100000
 export HISTFILE=$XDG_STATE_HOME/zsh/zsh_history
-# Export different completion directory
-export ZSH_COMPDUMP=$XDG_STATE_HOME/zsh/zcompdump
 
 mkdir -p "$(dirname "$HISTFILE")"
 
