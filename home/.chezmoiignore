@@ -1,6 +1,10 @@
 # exclude some configuration when not
 # on a machine related to the work
-{{ if ne .work true }}
+{{ if eq .work false }}
 .config/bku
 .config/zsh/work.zsh
 {{ end }}
+
+{{ if eq .work true -}}
+.config/mc/config.json
+{{ end -}}
