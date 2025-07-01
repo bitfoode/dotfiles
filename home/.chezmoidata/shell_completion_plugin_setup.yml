@@ -25,6 +25,10 @@ shell_completions:
     args: "completion"
   stern:
     args: "--completion"
+  trivy:
+    args: "completion"
+  velero:
+    args: "completion"
 
 shell_plugins:
   mise:
