@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+{{- $shells := list "bash" "zsh" }}
+
+set -eo pipefail
+echo "RESTIC | Start shell completions and plugin installation"
+
+CONFIG_DIR=${XDG_CONFIG_HOME:-"${HOME}/.config"}
+MAN_DIR=${XDG_DATA_HOME:-"${HOME}/.local/share"}/man/man1
+echo "RESTIC | Using ${CONFIG_DIR} as configuration directory"
+
+echo "RESTIC | Generating shell completions"
+{{ range $shell := $shells}}
+mkdir -p "$CONFIG_DIR"/{{ $shell }}/completions
+{{ end }}
+mkdir -p "$MAN_DIR"
+# Generate completions
+if command -v restic 2>&1 > /dev/null; then
+{{ range $shell := $shells -}}
+restic generate --{{ $shell }}-completion "$CONFIG_DIR"/{{ $shell }}/completions/_restic.sh > /dev/null
+{{ end -}}
+restic generate --man $MAN_DIR > /dev/null
+
+echo "RESTIC | Completions generation finished"
+else
+  echo "RESTIC | Restic command not found, hence not creating completions nor manpages"
+fi
+
+
