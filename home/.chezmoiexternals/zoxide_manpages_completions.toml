@@ -1,0 +1,13 @@
+{{ range list "zoxide-add.1" "zoxide-import.1" "zoxide-init.1" "zoxide-query.1" "zoxide-remove.1" "zoxide.1" -}}
+[".local/share/man/man1/{{ . }}"]
+type = "file"
+url = 'https://raw.githubusercontent.com/ajeetdsouza/zoxide/refs/tags/{{ (gitHubLatestTag "ajeetdsouza/zoxide").Name }}/man/man1/{{ . }}'
+{{ end -}}
+
+[".config/zsh/completions/_zoxide.sh"]
+type = "file"
+url = 'https://raw.githubusercontent.com/ajeetdsouza/zoxide/refs/tags/{{ (gitHubLatestTag "ajeetdsouza/zoxide").Name }}/contrib/completions/_zoxide'
+
+[".config/bash/completions/_zoxide.sh"]
+type = "file"
+url = 'https://raw.githubusercontent.com/ajeetdsouza/zoxide/refs/tags/{{ (gitHubLatestTag "ajeetdsouza/zoxide").Name }}/contrib/completions/zoxide.bash'
