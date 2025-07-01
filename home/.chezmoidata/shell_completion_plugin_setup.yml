@@ -27,3 +27,5 @@ shell_completions:
 shell_plugins:
   mise:
     args: activate
+  mcfly:
+    args: init
