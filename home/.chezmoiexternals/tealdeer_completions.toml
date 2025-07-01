@@ -1,0 +1,7 @@
+[".config/zsh/completions/_tldr.sh"]
+type = "file"
+url = '{{ gitHubLatestReleaseAssetURL "tealdeer-rs/tealdeer" "completions_zsh"  }}'
+
+[".config/bash/completions/_tldr.sh"]
+type = "file"
+url = '{{ gitHubLatestReleaseAssetURL "tealdeer-rs/tealdeer" "completions_bash"  }}'
