@@ -26,7 +26,7 @@ echo "SHELL | Completions generation finished"
 echo "SHELL | Install shell plugins"
 {{ range $key, $value := $plugins -}}
 {{ range $shell := $shells -}}
-{{ $key }} {{ $value.args }} {{ $shell }} > "$CONFIG_DIR"/{{ $shell }}/plugins/{{$key}}.sh
+{{ $key }} {{ $value.args }} {{ $shell }} > "$CONFIG_DIR"/{{ $shell }}/plugins/{{$key}}_generated.sh
 {{ end }}
 {{ end -}}
 echo "SHELL | Plugin installation finished"
