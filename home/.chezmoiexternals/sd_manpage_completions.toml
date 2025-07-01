@@ -1,0 +1,12 @@
+
+[".local/share/man/man1/sd.1"]
+type = "file"
+url = 'https://raw.githubusercontent.com/chmln/sd/refs/tags/{{ (gitHubLatestTag "chmln/sd").Name }}/gen/sd.1'
+
+[".config/zsh/completions/_sd.sh"]
+type = "file"
+url = 'https://raw.githubusercontent.com/chmln/sd/refs/tags/{{ (gitHubLatestTag "chmln/sd").Name }}/gen/completions/_sd'
+
+[".config/bash/completions/_sd.sh"]
+type = "file"
+url = 'https://raw.githubusercontent.com/chmln/sd/refs/tags/{{ (gitHubLatestTag "chmln/sd").Name }}/gen/completions/sd.bash'
