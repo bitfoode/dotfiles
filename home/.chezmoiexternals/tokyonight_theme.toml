@@ -1,0 +1,4 @@
+[".config/themes/tokyonight.nvim"]
+type = "git-repo"
+url = 'https://github.com/folke/tokyonight.nvim'
+clone.args = ["--branch", "stable", "--depth", "1"]
