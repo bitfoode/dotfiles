@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+{{- $shells := list "bash" "zsh" }}
+
+set -eo pipefail
+echo "RIPGREP | Start shell completions and plugin installation"
+
+CONFIG_DIR=${XDG_CONFIG_HOME:-"${HOME}/.config"}
+MAN_DIR=${XDG_DATA_HOME:-"${HOME}/.local/share"}/man/man1
+echo "RIPGREP | Using ${CONFIG_DIR} as configuration directory"
+
+echo "RIPGREP | Generating shell completions"
+{{ range $shell := $shells}}
+mkdir -p "$CONFIG_DIR"/{{ $shell }}/completions
+{{ end }}
+mkdir -p "$MAN_DIR"
+# Generate completions
+if command -v rg 2>&1 > /dev/null; then
+{{ range $shell := $shells -}}
+rg --generate=complete-{{ $shell }} > "$CONFIG_DIR"/{{ $shell }}/completions/_rg.sh
+{{ end -}}
+rg --generate=man > "$MAN_DIR/rg.1"
+
+echo "RIPGREP | Completions generation finished"
+else
+  echo "RIPGREP | Command not found, hence not creating completions nor manpages"
+fi
+
+
