@@ -23,6 +23,8 @@ shell_completions:
     args: "completion"
   k9s:
     args: "completion"
+  stern:
+    args: "--completion"
 
 shell_plugins:
   mise:
