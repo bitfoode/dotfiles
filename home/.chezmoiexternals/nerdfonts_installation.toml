@@ -1,0 +1,15 @@
+{{ $fontsDir := "" -}}
+{{ if eq .chezmoi.os "darwin" -}}
+  {{ $fontsDir = "Library/Fonts/nerdfonts" -}}
+{{ else if .chezmoi.os "linux" -}}
+  {{ $fontsDir = ".local/share/fonts/nerdfonts" -}}
+{{ end -}}
+
+{{ range .nerdfonts -}}
+["{{ joinPath $fontsDir . }}"]
+type = 'archive'
+url = '{{ gitHubLatestReleaseAssetURL "ryanoasis/nerd-fonts" (printf "%s.tar.xz" .) }}'
+refreshPeriod = "168h"
+{{ end -}}
+
+

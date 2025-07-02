@@ -31,6 +31,10 @@ packages:
       - man-db
       - unzip
       - diffutils
+      # nerfonts dependencies
+      - fontconfig
+      - gnu-tar
+      - xz
     casks: []
   fedora:
   # Shell specific packages
@@ -67,4 +71,8 @@ packages:
   - man-db
   - unzip
   - diffutils
+  # nerdfonts dependencies
+  - fontconfig
+  - tar
+  - xz
 

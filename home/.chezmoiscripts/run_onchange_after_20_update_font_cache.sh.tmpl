@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -eo pipefail
+
+{{ $fontsDir := "" -}}
+{{ if eq .chezmoi.os "darwin" -}}
+  {{ $fontsDir = joinPath .chezmoi.homeDir "Library/Fonts/nerdfonts" -}}
+{{ else if eq .chezmoi.os "linux" -}}
+  {{ $fontsDir = joinPath .chezmoi.homeDir ".local/share/fonts/nerdfonts" -}}
+{{ end -}}
+
+# Update the fontcache with fc-cache -f
+echo 'NERDFONTS | Checksum of {{ $fontsDir }}: {{ output "ls" "-l" $fontsDir | sha1sum }}'
+echo "NERDFONTS | Update font cache with fc-cache -f"
+fc-cache -f
+
