@@ -19,6 +19,12 @@ packages:
       - transmission-cli
       - exiftool
       - imagemagick
+      # bat dependencies
+      - gnu-tar
+      - less
+      - man-db
+      - unzip
+      - diffutils
     casks: []
   fedora:
   # Shell specific packages
@@ -48,4 +54,10 @@ packages:
   - gnumeric # ssconvert
   - chafa # ImageToText converter
   - mcomix3-thumbnailer
+  # bat dependencies
+  - tar
+  - less
+  - man-db
+  - unzip
+  - diffutils
 

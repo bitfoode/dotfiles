@@ -1,0 +1,24 @@
+{{ $pattern := "" -}}
+{{ if eq .chezmoi.os "darwin" -}}
+  {{ $pattern = "x86_64-apple-darwin" -}}
+{{ else if eq .chezmoi.os "linux" -}}
+  {{ if eq .chezmoi.arch "arm64" -}}
+    {{ $pattern = "aarch64-unknown-linux-gnu" -}}
+  {{ else if eq .chezmoi.arch "amd64" -}}
+    {{ $pattern = "x86_64-unknown-linux-gnu" -}}
+  {{ end -}}
+{{ end -}}
+
+[".local/share/man/man1/bat.1"]
+type = "archive-file"
+url = '{{ gitHubLatestReleaseAssetURL "sharkdp/bat" (printf "*%s*" $pattern) }}'
+stripComponents = 1
+path = "bat.1"
+
+{{ range (list "batpipe.1" "batman.1" "batwatch.1" "batgrep.1" "prettybat.1" "batdiff.1") -}}
+[".local/share/man/man1/{{ . }}"]
+type = "archive-file"
+url = '{{ gitHubLatestReleaseAssetURL "eth-p/bat-extras" "bat-extras*" }}'
+path = "man/{{ . }}"
+{{ end -}}
+

@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -eo pipefail
+
+# Collect some information/checksums to generate this script
+# If any of the follwing information changes the script will trigger
+# the update of bat cache
+
+# If tokyonight theme is updated
+echo 'BAT | Git Ref: {{ output "git" "-C" (joinPath .chezmoi.homeDir ".config" "themes" "tokyonight.nvim") "rev-parse" "HEAD" -}}'
+# If bat configuration directory is updated
+echo 'BAT | ~/.config/bat: {{ output "ls" "-R" (joinPath .chezmoi.homeDir ".config/bat") | sha1sum -}}'
+# If bat binary is updated
+{{ $batPath := findExecutable "bat" (list (joinPath .chezmoi.homeDir ".local/share/mise/installs/bat/latest")) -}}
+echo 'BAT | Modification time of bat executable: {{ (stat (printf "%s" $batPath )).modTime}}'
+echo "BAT | Either themes, or the bat binary changed"
+echo "BAT | Rebuilding bat cache"
+{{ $batPath }} cache --build 2>&1 > /dev/null
+echo "BAT | Cache rebuild finished"
