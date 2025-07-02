@@ -1,0 +1,29 @@
+[".config/zsh/completions/_eza.sh"]
+type = "archive-file"
+url = '{{ gitHubLatestReleaseAssetURL "eza-community/eza" "*completions*.tar.gz" }}'
+stripComponents = 3
+path = "_eza"
+
+[".config/bash/completions/_eza.sh"]
+type = "archive-file"
+url = '{{ gitHubLatestReleaseAssetURL "eza-community/eza" "*completions*.tar.gz" }}'
+stripComponents = 3
+path = "eza"
+
+[".local/share/man/man1/eza.1"]
+type = "archive-file"
+url = '{{ gitHubLatestReleaseAssetURL "eza-community/eza" "*man*.tar.gz" }}'
+stripComponents = 3
+path = "eza.1"
+
+[".local/share/man/man5/eza_colors.5"]
+type = "archive-file"
+url = '{{ gitHubLatestReleaseAssetURL "eza-community/eza" "*man*.tar.gz" }}'
+stripComponents = 3
+path = "eza_colors.5"
+
+[".local/share/man/man5/eza_colors-explanation.5"]
+type = "archive-file"
+url = '{{ gitHubLatestReleaseAssetURL "eza-community/eza" "*man*.tar.gz" }}'
+stripComponents = 3
+path = "eza_colors-explanation.5"
