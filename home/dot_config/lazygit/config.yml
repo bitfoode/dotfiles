@@ -1,0 +1,95 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json
+os:
+  editPreset: nvim
+git:
+  paging:
+    colorArg: always
+    pager: delta --features=lazygit
+customCommands:
+  # retrieved from: https://github.com/jesseduffield/lazygit/wiki/Custom-Commands-Compendium#conventional-commit
+  - key: "<c-v>"
+    context: "global"
+    description: "Create new conventional commit"
+    prompts:
+      - type: "menu"
+        key: "Type"
+        title: "Type of change"
+        options:
+          - name: "feat"
+            description: "A new feature"
+            value: "feat"
+          - name: "fix"
+            description: "A bug fix"
+            value: "fix"
+          - name: "chore"
+            description: "Other changes that don't modify src or test files"
+            value: "chore"
+          - name: "docs"
+            description: "Documentation only changes"
+            value: "docs"
+          - name: "style"
+            description: "Changes that do not affect the meaning of the code"
+            value: "style"
+          - name: "refactor"
+            description: "A code change that neither fixes a bug nor adds a feature"
+            value: "refactor"
+          - name: "perf"
+            description: "Changes that increases the performance of the application"
+            value: "perf"
+          - name: "test"
+            description: "Adding missing tests or correcting existing tests"
+            value: "test"
+          - name: "build"
+            description: "Changes that affect the build system or external dependencies"
+            value: "build"
+          - name: "ci"
+            description: "Changes to CI configuration files and scripts"
+            value: "ci"
+          - name: "revert"
+            description: "Reverts a previous commit"
+            value: "revert"
+      - type: "input"
+        title: "Scope"
+        key: "Scope"
+        initialValue: ""
+      - type: "menu"
+        key: "Breaking"
+        title: "Breaking change"
+        options:
+          - name: "no"
+            value: ""
+          - name: "yes"
+            value: "!"
+      - type: "input"
+        key: "Story"
+        title: "Ticket number"
+        initialValue: ""
+      - type: "input"
+        title: "message"
+        key: "Message"
+        initialValue: ""
+      - type: "input"
+        title: "description(optional)"
+        key: "Description"
+        initialValue: ""
+      - type: "confirm"
+        key: "Confirm"
+        title: "Commit"
+        body: "Are you sure you want to commit?"
+    command: |
+      {{- /* Define the icons map by setting variables for each key-value pair */ -}}
+      {{- $icon := ":question:" -}}
+      {{- if eq .Form.Type "feat" }}{{ $icon = ":sparkles:" }}
+      {{- else if eq .Form.Type "fix" }}{{ $icon = ":bug:" }}
+      {{- else if eq .Form.Type "docs" }}{{ $icon = ":books:" }}
+      {{- else if eq .Form.Type "style" }}{{ $icon = ":gem:" }}
+      {{- else if eq .Form.Type "refactor" }}{{ $icon = ":hammer:" }}
+      {{- else if eq .Form.Type "perf" }}{{ $icon = ":rocket:" }}
+      {{- else if eq .Form.Type "test" }}{{ $icon = ":rotating_light:" }}
+      {{- else if eq .Form.Type "build" }}{{ $icon = ":package:" }}
+      {{- else if eq .Form.Type "ci" }}{{ $icon = ":construction_worker:" }}
+      {{- else if eq .Form.Type "chore" }}{{ $icon = ":wrench:" }}
+      {{- end }}
+
+      git commit --message '{{ .Form.Type }}{{ if .Form.Scope }}({{ .Form.Scope }}){{ end }}{{.Form.Breaking}}: {{ $icon }} {{ if .Form.Story }}({{ .Form.Story }}) {{ end }}{{ .Form.Message }}'
+    loadingText: "Creating conventional commit..."
