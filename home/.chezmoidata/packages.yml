@@ -7,18 +7,24 @@ packages:
       - bash
       - bash-completion
       - zsh
-      # fzf preview packages
-      - gzip
-      - xz
-      - unzip
+      # fzf/lf preview packages
+      - 7-zip
       - binutils # nm
+      - chafa # ImageToText converter
+      - exiftool
+      - gnu-tar
+      - gnumeric # ssconvert
+      - gzip
+      - imagemagick
       - libcdio # iso-info
       - odt2txt
-      - gnu-tar
-      - 7-zip
+      - poppler
       - transmission-cli
-      - exiftool
-      - imagemagick
+      - unar
+      - unzip
+      - w3m # show html files
+      - xz
+      - zstd
       # bat dependencies
       - gnu-tar
       - less
@@ -34,26 +40,27 @@ packages:
   - bash
   - bash-completion
   - zsh
-  # fzf preview packages
-  - gzip
-  - xz
-  - unzip
+  # fzf/lf preview packages
+  - ImageMagick
   - binutils # nm
-  - libcdio # iso-info
-  - odt2txt
-  - tar
-  - p7zip-plugins # 7zip
-  - p7zip # 7zip
-  - transmission-common # transmission-show
   - catdoc # convert doc files
-  - w3m # show html files
+  - chafa # ImageToText converter
+  - gnumeric # ssconvert
+  - gzip
+  - libcdio # iso-info
+  - mcomix3-thumbnailer
+  - odt2txt
+  - p7zip # 7zip
+  - p7zip-plugins # 7zip
   - perl-Image-ExifTool # exiftool
   - poppler-utils
-  - ImageMagick
+  - tar
+  - transmission-common # transmission-show
   - unrar
-  - gnumeric # ssconvert
-  - chafa # ImageToText converter
-  - mcomix3-thumbnailer
+  - unzip
+  - w3m # show html files
+  - xz
+  - zstd
   # bat dependencies
   - tar
   - less

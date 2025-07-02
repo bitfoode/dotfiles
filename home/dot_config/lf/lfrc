@@ -1,0 +1,285 @@
+# shellcheck disable=all
+
+set noanchorfind
+set cursorpreviewfmt "033[7m"
+set drawbox
+set dupfilefmt "%b.%n%e"
+set findlen 1
+set icons
+set ignorecase
+set info "size"
+set relativenumber
+set scrolloff 10
+set shell "zsh"
+set sixel
+
+# Using mmv to bulkrename files or
+# create folders if neccessary
+# https://github.com/itchyny/mmv
+cmd bulkrename ${{
+  test -z "$EDITOR" && EDITOR=vi
+  mmv $(printf $fx | tr "\n" " ")
+
+  lf -remote "send $id load"
+  lf -remote "send $id unselect"
+}}
+
+# chmod file
+cmd chmod ${{
+  printf "Mode Bits: "
+  read mode
+
+  for file in "$fx"
+  do
+    chmod "$mode" "$file"
+  done
+
+  lf -remote "send $id reload"
+}}
+
+cmd tar ${{
+  # Prompt for compression tool
+  printf "Enter compression method and options (gzip, bzip2, zstd(default)): "
+  read compression_method
+
+  if [ -z "$compression_method" ]; then
+    printf "\nNo compression method provided using default (zstd)"
+    compression_method="zstd -T0"
+  fi
+
+  # Prompt for the archive name
+  printf "\nEnter archive name: "
+  read archive_name
+
+  if [ -z "$archive_name" ]; then
+    printf "\nArchive name is required."
+    exit 1
+  fi
+
+  # Create the tar.gz archive with the provided name
+  tar --use-compress-program="$compression_method" -cf "$archive_name" $fx
+
+  lf -remote "send $id load"
+}}
+
+cmd fzfJump ${{
+  res="$(fzf --header='Jump to location')"
+  if [ -n "$res" ]; then
+    if [ -d "$res" ]; then
+      cmd="cd"
+    else
+      cmd="select"
+    fi
+    res="$(printf '%s' "$res" | sed 's/\\/\\\\/g;s/"/\\"/g')"
+    lf -remote "send $id $cmd \"$res\""
+  fi
+}}
+
+cmd fzfSearch ${{
+  RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
+  res="$(
+    FZF_DEFAULT_COMMAND="$RG_PREFIX ''" \
+      fzf --bind "change:reload:$RG_PREFIX {q} || true" \
+      --ansi --header 'Search in files' \
+      | cut -d':' -f1 | sed 's/\\/\\\\/g;s/"/\\"/g'
+  )"
+  [ -n "$res" ] && lf -remote "send $id select \"$res\""
+}}
+
+# Change a link to a file with
+# same content as the origin file
+cmd linkToFile ${{
+  IFS=$(printf "\n\t")
+  for file in "$fx"; do
+    cp --remove-destination $(readlink "$file") "$file"
+  done
+}}
+
+# Create a new directory
+cmd mkdir ${{
+  printf "Directory Name: "
+  read ans
+  mkdir "$ans"
+}}
+
+# Create a new file with default editor
+cmd mkfile ${{
+  printf "File Name: "
+  read ans
+  if [ -n "$EDITOR" ]; then
+    $EDITOR "$ans"
+  else
+    touch "$ans"
+  fi
+}}
+
+cmd on-cd &{{
+  # '&' commands run silently in background (which is what we want here),
+  # but are not connected to stdout.
+  # To make sure our escape sequence still reaches stdout we pipe it to /dev/tty
+  printf "\033]0; $(pwd | sed "s|$HOME|~|")\007" > /dev/tty
+}}
+
+cmd on-redraw %{{
+  if [ $lf_width -le 90 ]; then
+    lf -remote "send $id set ratios 1:2"
+  else
+    lf -remote "send $id set ratios 1:2:3"
+  fi
+}}
+
+cmd on-select &{{
+  lf -remote "send $id set statfmt \"$(eza -ld --color=always "$f")\""
+}}
+
+# Open text file always with $EDITOR
+cmd open ${{
+  case $(file --mime-type "$f" -bL) in
+  text/*|application/json) $EDITOR "$f";;
+  *) $OPENER "$f" ;;
+  esac
+}}
+
+cmd togglePreview %{{
+  if [ "$lf_preview" = "true" ]; then
+    lf -remote "send $id :set preview false; set ratios 1:5"
+  else
+    lf -remote "send $id :set preview true; set ratios 1:2:3"
+  fi
+}}
+
+cmd trashEmpty ${{
+  clear
+  trashed_files=$(trash-list)
+  printf "%s" "$trashed_files" | head -n $(($lf_height - 2))
+  printf "\n"
+  printf "Enter old days: [0=all] "
+  read ans
+  if [ $ans -ge 0 ]; then
+    trash-empty $ans
+  fi
+}}
+
+cmd trashList !{{
+  clear
+  trashed_files=$(trash-list)
+  printf "%s" "$trashed_files" | head -n $(($lf_height - 2))
+  printf "\n"
+}}
+
+cmd trashPut ${{
+  IFS=$(printf "\n\t")
+  # put items into array that we can count them
+  files=()
+  while read -r line; do
+    files+=("$line");
+  done <<< "$fx"
+
+  # count how many items there are
+  len=${#files[@]}
+
+  # confirm trashing
+  if [[ $len == 1 ]]; then
+    printf "trash '$fx'?"
+  else
+    printf "files to trash:\n"
+    for file in "$files[@]"; do
+      printf "- "$file"\n"
+    done
+    printf "trash $len items?"
+  fi
+  printf " [y/N] "
+
+  # read answer
+  read ans
+  # make it lowercase
+  ans=$(printf "$ans" | tr '[:upper:]' '[:lower:]')
+
+  printf "\n"
+
+  if [[ $ans == y ]]; then
+    trash-put $(printf $fx | sed 's/\n/ /g')
+    if [[ $len == 1 ]]; then
+      printf "trashed '$files'\n"
+    else
+      printf "trashed $len items\n"
+    fi
+  else
+    # needed to clear the bottom row
+    printf "\n"
+  fi
+}}
+
+cmd trashRestore ${{
+  export lf_trash_restore=true
+  ids="$(
+    printf "\n"              | \
+    trash-restore                   | \
+    awk '$1 ~ /^[0-9]+/ {print $0}' | \
+    fzf --multi                     | \
+    awk '{printf("%s%s", sep, $1); sep=","} END {print ""}')"
+  printf $ids | trash-restore
+  clear
+}}
+
+cmd zoxide %{{
+  result="$(zoxide query --exclude $PWD $@ | sed 's/\\/\\\\/g;s/"/\\"/g')"
+  lf -remote "send $id cd \"$result\""
+}}
+
+cmd zoxidei ${{
+  result="$(zoxide query -i | sed 's/\\/\\\\/g;s/"/\\"/g')"
+  lf -remote "send $id cd \"$result\""
+}}
+
+
+map "'"
+map "." set hidden!
+map '"' :fzfSearch
+map <c-C> clear
+map <c-R> reload
+map <c-U> unselect
+map <c-f> :fzfSearch
+map <enter> open
+map DD delete
+map H top
+map J :updir; down; open
+map K :updir; up; open
+map L bottom
+map R bulkrename
+map ac push :createArchive<space>
+map ax extractArchive
+map c copy
+map ch chmod
+map d
+map dd trashPut
+map dl linkToFile
+map e open
+map f
+map ff filter
+map fj fzfJump
+map fs :fzfSearch
+map gD cd ~/Documents
+map gd cd ~/Downloads
+map gg cd ~/git
+map gi zoxidei
+map gn cd ~/Nextcloud
+map gt push :zoxide<space>
+map m
+map md mkdir
+map mf mkfile
+map mr bulkrename
+map n
+map o open
+map t
+map td trashPut
+map te trashEmpty
+map tl trashList
+map tr trashRestore
+map uu trashRestore
+map x cut
+map zp togglePreview
+
+set previewer ~/.config/lf/preview.sh
+
+on-cd

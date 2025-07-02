@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+echo "LF | Create manpage"
+
+MAN_DIR=${XDG_DATA_HOME:-"${HOME}/.local/share"}/man/man1
+
+mkdir -p "$MAN_DIR"
+
+# Generate completions
+if command -v lf 2>&1 > /dev/null; then
+lf -doc > "$MAN_DIR/lf.1"
+echo "LF | Manpage created"
+else
+  echo "LF | Command not found, hence not creating manpages"
+fi
+
