@@ -11,8 +11,11 @@ version = "2.14.15"
 backend = "aqua:argoproj/argo-cd"
 
 [tools.awscli]
-version = "2.27.42"
+version = "2.27.48"
 backend = "aqua:aws/aws-cli"
+
+[tools.awscli.checksums]
+"AWSCLIV2-2.27.48.pkg" = "sha256:0d21c69cc4d5e4051f52d12afd694797f5e745dfad970ec3608ce7f939ccb0ff"
 
 [tools.bat]
 version = "0.25.0"
@@ -22,9 +25,12 @@ backend = "ubi:sharkdp/bat"
 version = "2024.08.24"
 backend = "asdf:bat-extras"
 
-[tools.cargo]
-version = "0.88.0"
-backend = "cargo"
+[tools.cargo-binstall]
+version = "1.14.1"
+backend = "aqua:cargo-bins/cargo-binstall"
+
+[tools.cargo-binstall.checksums]
+"cargo-binstall-aarch64-apple-darwin.zip" = "sha256:07d46d31fb68ac10b906c5d39d611ded7787966f4ed15c598cb6175b45a2b069"
 
 [tools."cargo:eza"]
 version = "0.21.4"
@@ -41,13 +47,20 @@ backend = "ubi:twpayne/chezmoi"
 [tools.chezmoi.checksums]
 chezmoi-macos-aarch64 = "sha256:79c55c3f37ebf7ef7cec162e348e00618965b83dcad764a8a9258276bb1dbebe"
 
+[tools.copier]
+version = "9.7.1"
+backend = "pipx:copier"
+
 [tools.cosign]
 version = "2.5.2"
 backend = "aqua:sigstore/cosign"
 
 [tools.dagger]
-version = "0.18.10"
+version = "0.18.12"
 backend = "aqua:dagger/dagger"
+
+[tools.dagger.checksums]
+"dagger_v0.18.12_darwin_arm64.tar.gz" = "sha256:8a18828fe4ff5bc31a968429b146a271e1cc4b65e9496fb508fbf10a49a8bfc2"
 
 [tools.delta]
 version = "0.18.2"
@@ -66,12 +79,18 @@ version = "10.2.0"
 backend = "aqua:sharkdp/fd"
 
 [tools.fzf]
-version = "0.62.0"
+version = "0.63.0"
 backend = "aqua:junegunn/fzf"
 
+[tools.fzf.checksums]
+"fzf-0.63.0-darwin_arm64.tar.gz" = "sha256:2f3a1ac15ee28df1e23112bcc3eacf2d2488d1d2d0477159a4c3b21338b4ea91"
+
 [tools.ghorg]
-version = "1.11.1"
+version = "1.11.2"
 backend = "aqua:gabrie30/ghorg"
+
+[tools.ghorg.checksums]
+"ghorg_1.11.2_Darwin_arm64.tar.gz" = "sha256:79aeddde8c5ace769cf5f0916c12eacf1b35a681f5cfd6ef2c47c7d601410a2a"
 
 [tools.git-cliff]
 version = "2.9.1"
@@ -86,8 +105,11 @@ version = "1.24.4"
 backend = "core:go"
 
 [tools.golangci-lint]
-version = "2.1.6"
+version = "2.2.1"
 backend = "aqua:golangci/golangci-lint"
+
+[tools.golangci-lint.checksums]
+"golangci-lint-2.2.1-darwin-arm64.tar.gz" = "sha256:4066c41affc407e59df74b1e17bcc7138f366888f57670f0f4357d582a72fa8e"
 
 [tools.hadolint]
 version = "2.12.0"
@@ -98,8 +120,11 @@ version = "3.18.3"
 backend = "aqua:helm/helm"
 
 [tools.jq]
-version = "1.8.0"
+version = "1.8.1"
 backend = "aqua:jqlang/jq"
+
+[tools.jq.checksums]
+jq-macos-arm64 = "sha256:a9fe3ea2f86dfc72f6728417521ec9067b343277152b114f4e98d8cb0e263603"
 
 [tools.k9s]
 version = "0.50.6"
@@ -142,7 +167,7 @@ version = "0.11.2"
 backend = "aqua:neovim/neovim"
 
 [tools.node]
-version = "22.16.0"
+version = "22.17.0"
 backend = "core:node"
 
 [tools."pipx:trash-cli"]
@@ -162,7 +187,7 @@ version = "14.1.1"
 backend = "aqua:BurntSushi/ripgrep"
 
 [tools.rust]
-version = "1.87.0"
+version = "1.88.0"
 backend = "core:rust"
 
 [tools.sd]
@@ -170,18 +195,18 @@ version = "1.0.0"
 backend = "aqua:chmln/sd"
 
 [tools.slsa-verifier]
-version = "2.7.0"
+version = "2.7.1"
 backend = "ubi:slsa-framework/slsa-verifier"
 
 [tools.slsa-verifier.checksums]
-slsa-verifier-macos-aarch64 = "sha256:84d9122ce12e0c79080844285fd5c4976407ed3463e434a1b21b0979c46b1e55"
+slsa-verifier-macos-aarch64 = "sha256:39abfcf5f1d690c3e889ce3d2d6a8b87711424d83368511868d414e8f8bcb05c"
 
 [tools.sops]
 version = "3.10.2"
 backend = "aqua:getsops/sops"
 
 [tools.sqlite]
-version = "3.50.1"
+version = "3.50.2"
 backend = "asdf:sqlite"
 
 [tools.stern]
@@ -189,8 +214,11 @@ version = "1.32.0"
 backend = "aqua:stern/stern"
 
 [tools.trivy]
-version = "0.63.0"
+version = "0.64.0"
 backend = "aqua:aquasecurity/trivy"
+
+[tools.trivy.checksums]
+"trivy_0.64.0_macOS-ARM64.tar.gz" = "sha256:77e70dd2fdbac5986cc02a8def382bdaf78777f0050fc37af72916cc47b56a20"
 
 [tools.ubi]
 version = "0.7.2"
@@ -217,8 +245,11 @@ version = "1.7.2"
 backend = "ubi:tealdeer-rs/tealdeer"
 
 [tools.uv]
-version = "0.7.13"
+version = "0.7.18"
 backend = "aqua:astral-sh/uv"
+
+[tools.uv.checksums]
+"uv-aarch64-apple-darwin.tar.gz" = "sha256:c33cfaab95da1413a0403f643b7edb1c5af6798d8a2370196a80fc37b894df48"
 
 [tools.velero]
 version = "1.16.1"
@@ -229,8 +260,11 @@ version = "4.45.4"
 backend = "aqua:mikefarah/yq"
 
 [tools.yt-dlp]
-version = "2025.06.09"
+version = "2025.06.30"
 backend = "ubi:yt-dlp/yt-dlp"
+
+[tools.yt-dlp.checksums]
+yt-dlp-macos-aarch64 = "sha256:e2273b717c09c87413fc8cc2bedea5ed436bdfd9b2cf62b5458d7301aa5e769b"
 
 [tools.zoxide]
 version = "0.9.8"

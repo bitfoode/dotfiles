@@ -50,7 +50,6 @@ zoxide = "latest"
 "pipx:trash-cli" = "latest"
 ansible-core = { version = "latest", uvx_args = "--with ansible --with ansible-lint" }
 ubi = "latest"
-cargo = "latest"
 "cargo:eza" = "latest"
 "cargo:rustscan" = "latest"
 cosign = "latest"
@@ -58,6 +57,8 @@ mc = "latest"
 chezmoi = "latest"
 slsa-verifier = "latest"
 lua = "latest"
+copier = "latest"
+cargo-binstall = "latest"
 
 [settings]
 # enable exeperimental options, mainly for using go, ubi pipx bacend
@@ -65,9 +66,11 @@ experimental = true
 # configure the directories outside of HOME
 rust.rustup_home = "~/.local/share/mise/rustup"
 rust.cargo_home = "~/.local/share/mise/cargo"
+cargo.binstall = true
 # Using uvx backend instead of pipx
 pipx.uvx = true
 # Trust all paths in ~/git
 trusted_config_paths = [
     "~/git",
 ]
+idiomatic_version_file_enable_tools = []
