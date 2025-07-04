@@ -35,6 +35,9 @@ packages:
       - fontconfig
       - gnu-tar
       - xz
+      # neovim dependencies
+      - luarocks
+      - gcc
     casks: []
   fedora:
   # Shell specific packages
@@ -75,4 +78,9 @@ packages:
   - fontconfig
   - tar
   - xz
-
+  # neovim depdendencies
+  - luarocks
+  - gcc
+  - gcc-c++
+  - xclip
+  - wl-clipboard

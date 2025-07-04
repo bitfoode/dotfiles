@@ -129,6 +129,10 @@ backend = "aqua:kubernetes-sigs/kustomize"
 version = "0.52.0"
 backend = "aqua:jesseduffield/lazygit"
 
+[tools.lua]
+version = "5.4.7"
+backend = "asdf:lua"
+
 [tools.mc]
 version = "2025-05-21T01-59-54Z"
 backend = "asdf:mc"

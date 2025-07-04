@@ -57,6 +57,7 @@ cosign = "latest"
 mc = "latest"
 chezmoi = "latest"
 slsa-verifier = "latest"
+lua = "latest"
 
 [settings]
 # enable exeperimental options, mainly for using go, ubi pipx bacend
