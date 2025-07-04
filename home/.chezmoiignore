@@ -8,3 +8,5 @@
 {{ if eq .work true -}}
 .config/mc/config.json
 {{ end -}}
+
+.aws/secret_data.yml

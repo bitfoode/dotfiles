@@ -3,6 +3,7 @@
 {{ $email := promptStringOnce . "email" "What is your email address: " -}}
 {{ $work_email := promptStringOnce . "work_email" "What is your work email address: " -}}
 {{ $work := promptBoolOnce . "work" "Is this a work related machine: " -}}
+{{ $host := promptStringOnce . "host" "What is the host name: " -}}
 encryption: age
 age:
   identities:
@@ -23,4 +24,5 @@ data:
   email: {{ $email | quote }}
   work_email: {{ $work_email | quote }}
   work: {{ $work }}
+  host: {{ $host }}
 
