@@ -10,3 +10,4 @@
 {{ end -}}
 
 .aws/secret_data.yml
+.config/ghorg/secret_data.yml

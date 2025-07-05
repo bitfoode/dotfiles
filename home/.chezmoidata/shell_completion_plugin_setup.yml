@@ -35,6 +35,8 @@ shell_completions:
     args: "completion"
   bat:
     args: "--completion"
+  ghorg:
+    args: "completion"
 
 shell_plugins:
   mise:

@@ -1,0 +1,23 @@
+{{ $data := (fromYaml (join .chezmoi.sourceDir "dot_config/ghorg/secret_data.yml" | include | decrypt)) -}}
+{{ $homeDir := .chezmoi.homeDir -}}
+# +-+-+-+-+-+-+-+-+-+-+-+-+-+
+# |G|H|O|R|G| |R|E|C|L|O|N|E|
+# +-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+{{ range $key, $values := $data.ghorg_reclone_config -}}
+{{ $key }}:
+  cmd: {{ $values.cmd }}{{ if not (contains "--path" $values.cmd) }} --path {{ joinPath $homeDir "git" }}{{ end }}
+  description: {{ $values.description }}
+{{ end -}}
+
+{{ if hasKey $data .host -}}
+{{ with index $data .host -}}
+{{/* Extra configuration */}}
+{{ range $key, $values := . }}
+{{ $key }}:
+  cmd: {{ $values.cmd }}{{ if not (contains "--path" $values.cmd) }} --path {{ joinPath $homeDir "git" }}{{ end }}
+  description: {{ $values.description }}
+{{ end -}}
+{{ end -}}
+{{ end -}}
+
