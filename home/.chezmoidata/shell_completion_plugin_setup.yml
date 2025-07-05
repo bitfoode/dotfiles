@@ -37,6 +37,8 @@ shell_completions:
     args: "--completion"
   ghorg:
     args: "completion"
+  wezterm:
+    args: "shell-completion --shell"
 
 shell_plugins:
   mise:
