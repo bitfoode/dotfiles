@@ -1,89 +1,189 @@
-
 packages:
-  darwin:
-    brews:
+  nerd:
+    darwin:
+      brews:
+        - nvtop
+        - sqlite
+        - dagger
+      casks:
+        - android-file-transfer
+        - bitwarden
+        - caffeine
+        - db-browser-for-sqlite
+        - firefox
+        - libreoffice
+        - libreoffice-language-pack
+        - nextcloud
+        - obsidian
+        - rustdesk
+        - spotify
+        - steam
+        - visual-studio-code
+        - vlc
+  macdb:
+    darwin:
+      brews:
+        - nvtop
+        - sqlite
+        - dagger
+      casks:
+        - amazon-workspaces
+        - bitwarden
+        - caffeine
+        - db-browser-for-sqlite
+        - keepassxc
+        - onedrive
+        - obsidian
+        - rectangle
+        - spotify
+        - visual-studio-code
+  game:
+    flatpak:
+      - com.bitwarden.desktop
+      - org.ferdium.Ferdium
+      - com.spotify.Client
+      - com.nextcloud.desktopclient.nextcloud
+      - com.spotify.Client
+  all:
+    darwin:
+      brews:
+        # Corutils
+        - btop # Process monitor
+        - coreutils # GNU coreutils
+        - findutils # GNU findutils
+        - htop # Commandline system monitor
+        - iperf3 # Network performance tool
+        - jq # JSON Query cli
+        - less # Linux pager
+        - man-db # Installs the man command and some helper utlilities
+        - mtools # MS DOS tools
+        - nmap # Install nmap on macos also ncat/netcat
+        - pigz # Parallel gzip
+        - rsync # Sync utility more powerfull than cp
+        - smartmontools # S.M.A.R.T utility
+        - trash-cli # CLI to use the OS trash directories
+        - wget # Utility to download files from http/ftp
+        - bind # to get dig
+        - gnu-tar # Install default tar instead of bsd's tar
+        - watch # Watch command from procps-ng
+        - yt-dlp # youtoube downloader
+        # Shell specific packages
+        - git
+        - bash
+        - bash-completion
+        - zsh
+        # fzf/lf preview packages
+        - 7-zip
+        - binutils # nm
+        - chafa # ImageToText converter
+        - exiftool
+        - gnu-tar
+        - gnumeric # ssconvert
+        - gzip
+        - imagemagick
+        - libcdio # iso-info
+        - odt2txt
+        - poppler
+        - transmission-cli
+        - unar
+        - unzip
+        - w3m # show html files
+        - xz
+        - zstd
+        # bat dependencies
+        - gnu-tar
+        - less
+        - man-db
+        - unzip
+        - diffutils
+        # nerfonts dependencies
+        - fontconfig
+        - gnu-tar
+        - xz
+        # neovim dependencies
+        - luarocks
+        - gcc
+      casks:
+        - wezterm
+    fedora:
+      # corutils
+      - btop # Process monitor
+      - coreutils # GNU coreutils
+      - findutils # GNU findutils
+      - htop # Commandline system monitor
+      - iperf3 # Network performance tool
+      - jq # JSON Query cli
+      - less # Linux pager
+      - man-db # Installs the man command and some helper utlilities
+      - mtools # MS DOS tools
+      - nmap # Install nmap on macos also ncat/netcat
+      - pigz # Parallel gzip
+      - rsync # Sync utility more powerfull than cp
+      - smartmontools # S.M.A.R.T utility
+      - trash-cli # CLI to use the OS trash directories
+      - wget # Utility to download files from http/ftp
+      - bind-utils # to get dig
+      - iftop # Bandwith monitor
+      - iputils # Networking utilities like ping, traceroute, etc.
+      - nmap-ncat # Netcat package from nmap
+      - p7zip # 7zip
+      - procps-ng # Watch command
+      - tar # Install default tar instead of bsd's tar
+      - yt-dlp-bash-completion # youtoube downloader completion
+      - yt-dlp-zsh-completion # youtoube downloader completion
+      - hdparm # Get/Set HDD/SSD parameter
+      - dmidecode # Get BIOS information
+      - compsize # Calculate real size on compressed BTRFS subvols
+      - inotify-tools # Inotify cli utils
+      - yt-dlp # youtoube downloader
       # Shell specific packages
       - git
+      - glibc-langpack-en
+      - glibc-langpack-de
       - bash
       - bash-completion
       - zsh
       # fzf/lf preview packages
-      - 7-zip
+      - ImageMagick
       - binutils # nm
+      - catdoc # convert doc files
       - chafa # ImageToText converter
-      - exiftool
-      - gnu-tar
       - gnumeric # ssconvert
       - gzip
-      - imagemagick
       - libcdio # iso-info
+      - mcomix3-thumbnailer
       - odt2txt
-      - poppler
-      - transmission-cli
-      - unar
+      - p7zip # 7zip
+      - p7zip-plugins # 7zip
+      - perl-Image-ExifTool # exiftool
+      - poppler-utils
+      - tar
+      - transmission-common # transmission-show
+      - unrar
       - unzip
       - w3m # show html files
       - xz
       - zstd
       # bat dependencies
-      - gnu-tar
+      - tar
       - less
       - man-db
       - unzip
       - diffutils
-      # nerfonts dependencies
+      # nerdfonts dependencies
       - fontconfig
-      - gnu-tar
+      - tar
       - xz
-      # neovim dependencies
+      # neovim depdendencies
       - luarocks
       - gcc
-    casks:
-      - wezterm
-  fedora:
-    # Shell specific packages
-    - git
-    - glibc-langpack-en
-    - glibc-langpack-de
-    - bash
-    - bash-completion
-    - zsh
-    # fzf/lf preview packages
-    - ImageMagick
-    - binutils # nm
-    - catdoc # convert doc files
-    - chafa # ImageToText converter
-    - gnumeric # ssconvert
-    - gzip
-    - libcdio # iso-info
-    - mcomix3-thumbnailer
-    - odt2txt
-    - p7zip # 7zip
-    - p7zip-plugins # 7zip
-    - perl-Image-ExifTool # exiftool
-    - poppler-utils
-    - tar
-    - transmission-common # transmission-show
-    - unrar
-    - unzip
-    - w3m # show html files
-    - xz
-    - zstd
-    # bat dependencies
-    - tar
-    - less
-    - man-db
-    - unzip
-    - diffutils
-    # nerdfonts dependencies
-    - fontconfig
-    - tar
-    - xz
-    # neovim depdendencies
-    - luarocks
-    - gcc
-    - gcc-c++
-    - xclip
-    - wl-clipboard
-  flatpak:
-    - org.wezfurlong.wezterm
+      - gcc-c++
+      - xclip
+      - wl-clipboard
+    flatpak:
+      - org.wezfurlong.wezterm
+      - com.bitwarden.desktop
+      - org.ferdium.Ferdium
+      - com.spotify.Client
+      - com.nextcloud.desktopclient.nextcloud
+      - com.spotify.Client

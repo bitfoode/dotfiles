@@ -4,6 +4,12 @@
 {{ $work_email := promptStringOnce . "work_email" "What is your work email address: " -}}
 {{ $work := promptBoolOnce . "work" "Is this a work related machine: " -}}
 {{ $host := promptStringOnce . "host" "What is the host name: " -}}
+
+{{ $flatpak := false -}}
+{{ if eq .chezmoi.os "linux" -}}
+{{ $flatpak := promptBoolOnce . "flatpak" "Install flatpak on this machine: " -}}
+{{ end -}}
+
 encryption: age
 age:
   identities:
@@ -24,5 +30,5 @@ data:
   email: {{ $email | quote }}
   work_email: {{ $work_email | quote }}
   work: {{ $work }}
-  host: {{ $host }}
-
+  host: {{ $host | quote }}
+  flatpak: {{ $flatpak }}
