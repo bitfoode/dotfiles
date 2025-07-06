@@ -39,6 +39,10 @@ shell_completions:
     args: "completion"
   wezterm:
     args: "shell-completion --shell"
+  uv:
+    args: "--no-config generate-shell-completion"
+  uvx:
+    args: "--no-config --generate-shell-completion"
 
 shell_plugins:
   mise:

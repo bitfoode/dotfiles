@@ -12,4 +12,5 @@
 .aws/secret_data.yml
 .config/ghorg/secret_data.yml
 .config/wezterm/secret_data.yml
+.config/uv/secret_data.yml
 secret_netrc_data.yml

@@ -1,0 +1,11 @@
+{{ $data := (fromYaml (join .chezmoi.sourceDir "dot_config/uv/secret_data.yml" | include | decrypt)) -}}
+# Ansible managed# UV configuration
+# Enable preview features
+preview = true
+# Only use managed python interpreters
+# never use system python
+python-preference = "only-managed"
+
+{{ if hasKey $data.uv_config .host -}}
+{{ index $data.uv_config .host }}
+{{ end -}}
