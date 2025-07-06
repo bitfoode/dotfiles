@@ -9,6 +9,7 @@
 {{ if eq .chezmoi.os "linux" -}}
 {{ $flatpak := promptBoolOnce . "flatpak" "Install flatpak on this machine: " -}}
 {{ end -}}
+{{ $set_default_shell := promptBoolOnce . "set_default_shell" "Set default shell to zsh? "}}
 
 encryption: age
 age:
@@ -32,3 +33,4 @@ data:
   work: {{ $work }}
   host: {{ $host | quote }}
   flatpak: {{ $flatpak }}
+  set_default_shell: {{ $set_default_shell }}

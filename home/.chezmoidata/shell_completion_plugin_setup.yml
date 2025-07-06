@@ -1,3 +1,5 @@
+shell_default: zsh
+
 shells:
   - zsh
   - bash
