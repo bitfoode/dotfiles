@@ -1,0 +1,10 @@
+{{ $data := (fromYaml (join .chezmoi.sourceDir "secret_netrc_data.yml" | include | decrypt)) -}}
+{{ if hasKey $data .host -}}
+{{ with index $data .host -}}
+{{ range $entry := . -}}
+machine $entry.machine
+login $entry.login
+password $entry.password
+{{ end -}}
+{{ end -}}
+{{ end -}}
