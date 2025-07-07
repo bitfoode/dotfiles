@@ -34,7 +34,6 @@ packages:
         - keepassxc
         - onedrive
         - obsidian
-        - rectangle
         - spotify
         - visual-studio-code
   game:
