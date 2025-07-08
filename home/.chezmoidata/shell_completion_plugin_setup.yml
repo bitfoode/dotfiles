@@ -1,10 +1,10 @@
-shell_default: zsh
+shellDefault: zsh
 
 shells:
   - zsh
   - bash
 
-shell_completions:
+shellCompletions:
   mise:
     args: "completion"
   chezmoi:
@@ -46,7 +46,7 @@ shell_completions:
   uvx:
     args: "--no-config --generate-shell-completion"
 
-shell_plugins:
+shellPlugins:
   mise:
     args: activate
   mcfly:

@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 {{- $shells := .shells }}
-{{- $completions := .shell_completions }}
-{{- $plugins := .shell_plugins }}
-{{- $shell_default := .shell_default }}
+{{- $completions := .shellCompletions }}
+{{- $plugins := .shellPlugins }}
+{{- $shellDefault := .shellDefault }}
 
 set -eo pipefail
 echo "SHELL | Start shell completions and plugin installation"
@@ -40,7 +40,7 @@ fi
 zsh -c 'autoload -Uz compinit && compinit'
 
 {{/* Set the default shell if shell_default is not none */}}
-{{ if .set_default_shell -}}
+{{ if .setDefaultShell -}}
   echo "SHELL | Get current configured default shell"
   {{ if eq .chezmoi.os "darwin" -}}
     CURRENT_SHELL=$(basename $(dscl . -read /Users/"$USER" UserShell | awk '{print $2}'))
@@ -49,10 +49,10 @@ zsh -c 'autoload -Uz compinit && compinit'
   {{ end -}}
   echo "SHELL | Current default shell $CURRENT_SHELL"
 
-  if [ "$CURRENT_SHELL" != "{{ $shell_default }}"]; then
-    echo "SHELL | Set default shell to {{ $shell_default }}"
-    chsh -s "{{ $shell_default }}"
+  if [ "$CURRENT_SHELL" != "{{ $shellDefault }}" ]; then
+    echo "SHELL | Set default shell to {{ $shellDefault }}"
+    chsh -s "{{ $shellDefault }}"
   else
-    echo "SHELL | Default shell already set to {{ $shell_default }}"
+    echo "SHELL | Default shell already set to {{ $shellDefault }}"
   fi
 {{ end -}}

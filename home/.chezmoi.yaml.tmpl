@@ -1,7 +1,6 @@
 {{ $name := promptStringOnce . "name" "What is your name: " -}}
 {{ $lastname := promptStringOnce . "lastname" "What is your lastname: " -}}
 {{ $email := promptStringOnce . "email" "What is your email address: " -}}
-{{ $work_email := promptStringOnce . "work_email" "What is your work email address: " -}}
 {{ $work := promptBoolOnce . "work" "Is this a work related machine: " -}}
 {{ $host := promptStringOnce . "host" "What is the host name: " -}}
 
@@ -9,7 +8,7 @@
 {{ if eq .chezmoi.os "linux" -}}
 {{ $flatpak := promptBoolOnce . "flatpak" "Install flatpak on this machine: " -}}
 {{ end -}}
-{{ $set_default_shell := promptBoolOnce . "set_default_shell" "Set default shell to zsh? "}}
+{{ $setDefaultShell := promptBoolOnce . "setDefaultShell" "Set default shell to zsh? "}}
 {{ $gitSSHSigningKey := promptStringOnce . "gitSSHSigningKey" "Path to the git ssh signing key: "}}
 
 encryption: age
@@ -30,9 +29,8 @@ data:
   name: {{ $name | quote }}
   lastname: {{ $lastname | quote }}
   email: {{ $email | quote }}
-  work_email: {{ $work_email | quote }}
   work: {{ $work }}
   host: {{ $host | quote }}
   flatpak: {{ $flatpak }}
-  set_default_shell: {{ $set_default_shell }}
+  setDefaultShell: {{ $setDefaultShell }}
   gitSSHSigningKey: {{ $gitSSHSigningKey }}

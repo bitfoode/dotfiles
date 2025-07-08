@@ -1,21 +1,21 @@
-zsh_plugins:
-  git_repos:
+zshPlugins:
+  gitRepos:
     zsh-completions:
-      repo_url: https://github.com/zsh-users/zsh-completions.git
+      repoUrl: https://github.com/zsh-users/zsh-completions.git
       ref: master
     zsh-autosuggestions:
-      repo_url: https://github.com/zsh-users/zsh-autosuggestions.git
+      repoUrl: https://github.com/zsh-users/zsh-autosuggestions.git
       ref: master
     zsh-syntax-highlighting:
-      repo_url: https://github.com/zsh-users/zsh-syntax-highlighting.git
+      repoUrl: https://github.com/zsh-users/zsh-syntax-highlighting.git
       ref: master
     zsh-history-substring-search:
-      repo_url: https://github.com/zsh-users/zsh-history-substring-search.git
+      repoUrl: https://github.com/zsh-users/zsh-history-substring-search.git
       ref: master
     powerlevel10k:
-      repo_url: https://github.com/romkatv/powerlevel10k.git
+      repoUrl: https://github.com/romkatv/powerlevel10k.git
       ref: master
   files:
     sudo.plugin.zsh:
-      repo_url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/sudo/sudo.plugin.zsh
+      repoUrl: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/sudo/sudo.plugin.zsh
 
