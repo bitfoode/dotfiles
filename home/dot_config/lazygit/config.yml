@@ -2,6 +2,7 @@
 os:
   editPreset: nvim
 git:
+  overrideGpg: true
   paging:
     colorArg: always
     pager: delta --features=lazygit
