@@ -60,6 +60,9 @@
 [log]
 showSignature = true
 
+[gpg.ssh]
+    allowedSignersFile = "{{ joinPath .chezmoi.homeDir "/.config/git/git_allowed_signers" }}"
+
 [user]
     email = "{{ .email }}"
     name = "{{ .name }} {{ .lastname }}"

@@ -1,0 +1,12 @@
+{{ $data := (fromYaml (join .chezmoi.sourceDir "dot_config/git/secret_data.yml" | include | decrypt)) -}}
+{{ $publicSSHKeyPath := printf "%s%s" (joinPath .chezmoi.homeDir ".ssh" .gitSSHSigningKey) ".pub" -}}
+{{ if stat $publicSSHKeyPath -}}
+{{ .email }} {{ include $publicSSHKeyPath }}
+{{ end -}}
+{{ if hasKey $data .host -}}
+{{ with $data.gitExtraConfig .host -}}
+{{ range $item := . -}}
+{{ $item.usermail }} {{ include $publicSSHKeyPath }}
+{{ end -}}
+{{ end -}}
+{{ end -}}
