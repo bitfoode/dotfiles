@@ -1,4 +1,5 @@
 {{ $data := (fromYaml (join .chezmoi.sourceDir "dot_config/git/secret_data.yml" | include | decrypt)) -}}
+{{ $homeDir := .chezmoi.homeDir -}}
 [core]
     autocrlf = "input"
     pager = "delta"
@@ -61,22 +62,22 @@
 showSignature = true
 
 [gpg.ssh]
-    allowedSignersFile = "{{ joinPath .chezmoi.homeDir "/.config/git/git_allowed_signers" }}"
+    allowedSignersFile = "{{ joinPath $homeDir "/.config/git/git_allowed_signers" }}"
 
 [user]
     email = "{{ .email }}"
     name = "{{ .name }} {{ .lastname }}"
-    signingkey = "{{ joinPath .chezmoi.homeDir ".ssh" .gitSSHSigningKey }}.pub"
+    signingkey = "{{ joinPath $homeDir ".ssh" .gitSSHSigningKey }}.pub"
 [gpg]
     format = ssh
 [commit]
     gpgsign = true
 
 {{ if hasKey $data.gitExtraConfig .host -}}
-{{ with $data.gitExtraConfig .host -}}
+{{ with index $data.gitExtraConfig .host -}}
 {{ range $item := . }}
 [includeIf "gitdir:{{ $item.path }}"]
-    path = " joinPath '{{ .chezmoi.homeDir }}' '.config/git/includes' '{{ sha1sum $item.path }}.inc'"
+    path = "{{ printf "%s%s" (joinPath $homeDir ".config/git/includes" (sha1sum $item.path)) ".inc" }}"
 {{ end -}}
 {{ end -}}
 {{ end -}}

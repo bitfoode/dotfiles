@@ -4,7 +4,7 @@
 {{ .email }} {{ include $publicSSHKeyPath }}
 {{ end -}}
 {{ if hasKey $data .host -}}
-{{ with $data.gitExtraConfig .host -}}
+{{ with index $data.gitExtraConfig .host -}}
 {{ range $item := . -}}
 {{ $item.usermail }} {{ include $publicSSHKeyPath }}
 {{ end -}}

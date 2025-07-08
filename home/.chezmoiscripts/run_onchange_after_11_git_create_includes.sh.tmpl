@@ -1,17 +1,19 @@
 #!/bin/bash
 {{ $data := (fromYaml (join .chezmoi.sourceDir "dot_config/git/secret_data.yml" | include | decrypt)) -}}
 {{ $gitSSHSigningKey := .gitSSHSigningKey -}}
-{{ $gitGeneratedDir := joinPath .chezmoi.homeDir ".config/git/generated" }}
+{{ $homeDir := .chezmoi.homeDir -}}
+{{ $gitGeneratedDir := joinPath $homeDir ".config/git/generated" -}}
 
 {{ if hasKey $data.gitExtraConfig .host -}}
+echo "GIT | Create extra configuration for includeIf in ~/.config/git/config"
 mkdir -p {{ $gitGeneratedDir }}
-{{ with $data.gitExtraConfig .host -}}
+{{ with index $data.gitExtraConfig .host -}}
 {{ range $item := . }}
 cat <<EOF > {{ joinPath $gitGeneratedDir (sha1sum $item.path)}}.inc
 [user]
     name = "{{ .username }}"
     email = "{{ .usermail }}"
-    signingkey = "{{ joinPath .chezmoi.homeDir ".ssh" .gitSSHSigningKey }}.pub"
+    signingkey = "{{ joinPath $homeDir ".ssh" $gitSSHSigningKey }}.pub"
 [gpg]
     format = ssh
 [commit]
@@ -19,4 +21,5 @@ cat <<EOF > {{ joinPath $gitGeneratedDir (sha1sum $item.path)}}.inc
 EOF
 {{ end -}}
 {{ end -}}
+echo "GIT | Finished"
 {{ end -}}
