@@ -1,0 +1,22 @@
+#!/bin/bash
+{{ $data := (fromYaml (join .chezmoi.sourceDir "dot_config/git/secret_data.yml" | include | decrypt)) -}}
+{{ $gitSSHSigningKey := .gitSSHSigningKey -}}
+{{ $gitGeneratedDir := joinPath .chezmoi.homeDir ".config/git/generated" }}
+
+{{ if hasKey $data.gitExtraConfig .host -}}
+mkdir -p {{ $gitGeneratedDir }}
+{{ with $data.gitExtraConfig .host -}}
+{{ range $item := . }}
+cat <<EOF > {{ joinPath $gitGeneratedDir (sha1sum $item.path)}}.inc
+[user]
+    name = "{{ .username }}"
+    email = "{{ .usermail }}"
+    signingkey = "{{ joinPath .chezmoi.homeDir ".ssh" .gitSSHSigningKey }}.pub"
+[gpg]
+    format = ssh
+[commit]
+    gpgsign = true
+EOF
+{{ end -}}
+{{ end -}}
+{{ end -}}

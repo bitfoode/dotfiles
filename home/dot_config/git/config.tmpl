@@ -1,0 +1,77 @@
+{{ $data := (fromYaml (join .chezmoi.sourceDir "dot_config/git/secret_data.yml" | include | decrypt)) -}}
+[core]
+    autocrlf = "input"
+    pager = "delta"
+	ignorecase = false
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    features = default
+
+[delta "default"]
+    navigate = true
+    line-numbers = true
+    hyperlinks = true
+    minus-style                   = syntax "#3a273a"
+    minus-non-emph-style          = syntax "#3a273a"
+    minus-emph-style              = syntax "#6b2e43"
+    minus-empty-line-marker-style = syntax "#3a273a"
+    line-numbers-minus-style      = "#e26a75"
+    plus-style                    = syntax "#273849"
+    plus-non-emph-style           = syntax "#273849"
+    plus-emph-style               = syntax "#305f6f"
+    plus-empty-line-marker-style  = syntax "#273849"
+    line-numbers-plus-style       = "#b8db87"
+    line-numbers-zero-style       = "#3b4261"
+
+[delta "lazygit"]
+    features = default
+    paging = never
+    dark = true
+    side-by-side = false
+    hyperlinks-file-link-format = "lazygit-edit://{path}:{line}"
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
+
+[credential "https://git-codecommit.eu-central-1.amazonaws.com"]
+    helper = "!aws codecommit credential-helper $@"
+    useHttpPath = "true"
+
+[filter "lfs"]
+    clean = "git-lfs clean -- %f"
+    process = "git-lfs filter-process"
+    required = true
+    smudge = "git-lfs smudge -- %f"
+
+[help]
+    autoCorrect = 10
+
+[init]
+    defaultBranch = "main"
+
+[pull]
+    rebase = true
+
+[user]
+    email = "{{ .email }}"
+    name = "{{ .name }} {{ .lastname }}"
+    signingkey = "{{ joinPath .chezmoi.homeDir ".ssh" .gitSSHSigningKey }}.pub"
+[gpg]
+    format = ssh
+[commit]
+    gpgsign = true
+
+{{ if hasKey $data.gitExtraConfig .host -}}
+{{ with $data.gitExtraConfig .host -}}
+{{ range $item := . }}
+[includeIf "gitdir:{{ $item.path }}"]
+    path = " joinPath '{{ .chezmoi.homeDir }}' '.config/git/includes' '{{ sha1sum $item.path }}.inc'"
+{{ end -}}
+{{ end -}}
+{{ end -}}

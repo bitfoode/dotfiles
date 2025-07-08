@@ -71,6 +71,9 @@ packages:
         - bash
         - bash-completion
         - zsh
+        # Git installation
+        - git
+        - git-lfs
         # fzf/lf preview packages
         - 7-zip
         - binutils # nm
@@ -142,6 +145,9 @@ packages:
       - bash
       - bash-completion
       - zsh
+      # Git installation
+      - git
+      - git-lfs
       # fzf/lf preview packages
       - ImageMagick
       - binutils # nm
