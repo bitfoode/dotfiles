@@ -7,8 +7,6 @@ shells:
 shellCompletions:
   mise:
     args: "completion"
-  chezmoi:
-    args: "completion"
   argocd:
     args: "completion"
   dive:
