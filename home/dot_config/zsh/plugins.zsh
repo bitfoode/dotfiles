@@ -63,3 +63,11 @@ if [[ -f "$HOME/.config/zsh/plugins/powerlevel10k-config/p10k.zsh" ]]; then
   source "$HOME/.config/zsh/plugins/powerlevel10k-config/p10k.zsh"
 fi
 
+# Source plugins installed from other tools like eza, mcfly etc.
+if [[ -d "$XDG_CONFIG_HOME"/zsh/plugins ]]; then
+  # shellcheck disable=SC2044
+  for file in $(find "$XDG_CONFIG_HOME"/zsh/plugins/ -maxdepth 1 \( -type f -o -type l \) \( -iname "*.sh" -o -iname "*.zsh" \)); do
+    # shellcheck source=/dev/null
+    source "$file"
+  done
+fi
