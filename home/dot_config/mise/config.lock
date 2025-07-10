@@ -189,19 +189,12 @@ version = "0.11.2"
 backend = "aqua:neovim/neovim"
 
 [tools.node]
-version = "24.4.0"
+version = "22.17.0"
 backend = "core:node"
-
-[tools.node.checksums]
-"node-v24.4.0-darwin-arm64.tar.gz" = "sha256:d7db0e5017d68f4e34405f5c99ad3895481793cc6420550e582b7eedf911780f"
 
 [tools."pipx:trash-cli"]
 version = "0.24.5.26"
 backend = "pipx:trash-cli"
-
-[tools.python]
-version = "3.13.5"
-backend = "core:python"
 
 [tools.restic]
 version = "0.18.0"
