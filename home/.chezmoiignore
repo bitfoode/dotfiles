@@ -14,4 +14,5 @@
 .config/wezterm/secret_data.yml
 .config/uv/secret_data.yml
 .config/git/secret_data.yml
+.config/containers/secret_data.yml
 secret_netrc_data.yml

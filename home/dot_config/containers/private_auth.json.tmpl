@@ -1,0 +1,9 @@
+{{ $data := (fromYaml (join .chezmoi.sourceDir "dot_config/containers/secret_data.yml" | include | decrypt)) -}}
+{{ if hasKey $data.containersAuth .host -}}
+{{ with index $data.containersAuth .host -}}
+{{ mustToJson . }}
+{{ end -}}
+{{ else }}
+{{ toPrettyJson (mustFromJson "{\"auths\":{}}") }}
+{{ end -}}
+

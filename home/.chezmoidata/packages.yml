@@ -5,6 +5,8 @@ packages:
         - nvtop
         - sqlite
         - dagger
+        # podman dependencies
+        - podman
       casks:
         - android-file-transfer
         - bitwarden
@@ -20,12 +22,16 @@ packages:
         - steam
         - visual-studio-code
         - vlc
+        # podman dependencies
+        - podman-desktop
   macdb:
     darwin:
       brews:
         - nvtop
         - sqlite
         - dagger
+        # podman dependencies
+        - podman
       casks:
         - amazon-workspaces
         - bitwarden
@@ -36,6 +42,8 @@ packages:
         - obsidian
         - spotify
         - visual-studio-code
+        # podman dependencies
+        - podman-desktop
   game:
     flatpak:
       - com.bitwarden.desktop
@@ -106,6 +114,7 @@ packages:
         - luarocks
         - gcc
       casks:
+        # wezterm dependencies
         - wezterm
     fedora:
       # corutils
@@ -192,3 +201,4 @@ packages:
       - com.spotify.Client
       - com.nextcloud.desktopclient.nextcloud
       - com.spotify.Client
+

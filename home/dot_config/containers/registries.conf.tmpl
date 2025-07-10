@@ -1,0 +1,9 @@
+{{ $data := (fromYaml (join .chezmoi.sourceDir "dot_config/containers/secret_data.yml" | include | decrypt)) -}}
+{{ if hasKey $data.registryConfig .host -}}
+{{ with index $data.registryConfig .host -}}
+unqualified-search-registries = {{ .unqualifiedSearchRegistries | toToml }}
+{{ end -}}
+{{ else }}
+unqualified-search-registries = ["docker.io"]
+{{ end -}}
+short-name-mode = "permissive"

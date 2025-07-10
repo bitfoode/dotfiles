@@ -2,6 +2,13 @@
 version = "1.2.1"
 backend = "aqua:FiloSottile/age"
 
+[tools.amazon-ecr-credential-helper]
+version = "0.10.1"
+backend = "aqua:awslabs/amazon-ecr-credential-helper"
+
+[tools.amazon-ecr-credential-helper.checksums]
+docker-credential-ecr-login = "sha256:6a560a3b5d0da4f8e2d98d5aab18a4325fac82029d2d0b41a3f884680bb76113"
+
 [tools.ansible-core]
 version = "2.18.6"
 backend = "pipx:ansible-core[uvx_args=--with ansible]"
