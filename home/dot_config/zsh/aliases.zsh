@@ -75,3 +75,11 @@ if command -v lazygit &> /dev/null; then
     alias lg="lazygit"
 fi
 
+if command -v nvim &> /dev/null; then
+    alias vi=nvim
+    alias vim=nvim
+fi
+
+if command -v podman &> /dev/null; then
+    alias docker=podman
+fi
