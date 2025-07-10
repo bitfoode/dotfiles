@@ -83,3 +83,26 @@ fi
 if command -v podman &> /dev/null; then
     alias docker=podman
 fi
+
+if command -v eza &> /dev/null; then
+    export EZA_CONFIG_DIR="$XDG_CONFIG_HOME/eza"
+    alias eza="eza --icons --group-directories-first --group --header --mounts --git"
+    alias la="eza -a"
+    alias ll="eza -l"
+    alias lla="eza -la"
+    alias ls="eza"
+    alias lt="eza --tree"
+    alias tree="eza --tree"
+fi
+
+if command -v bat &> /dev/null; then
+    # Set bat theme
+    export BAT_THEME="tokyonight_storm"
+    # Alias cat to bat
+    alias cat="bat"
+    alias man="batman"
+fi
+
+if command -v rg &> /dev/null; then
+    alias grep="rg"
+fi

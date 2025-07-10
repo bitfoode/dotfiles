@@ -17,6 +17,9 @@ zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f
 # Load colors into shell for colored-man-pages.plugin.zsh
 autoload -U colors && colors
 
+# Early load mise actvate script
+[ -f "$XDG_CONFIG_HOME"/zsh/plugins/mise_generated.sh ] && source "$XDG_CONFIG_HOME"/zsh/plugins/mise_generated.sh
+
 # shellcheck source=$XDG_CONFIG_HOME/.config/zsh/exports.zsh
 [ -f "$XDG_CONFIG_HOME"/zsh/exports.zsh ] && source "$XDG_CONFIG_HOME"/zsh/exports.zsh
 [ -f "$XDG_CONFIG_HOME"/zsh/options.zsh ] && source "$XDG_CONFIG_HOME"/zsh/options.zsh
