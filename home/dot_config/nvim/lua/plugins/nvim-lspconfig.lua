@@ -147,7 +147,6 @@ return {
         jsonls = {
           schemas = require("schemastore").json.schemas(),
           validate = { enable = true },
-          capabilities = capabilities,
         },
         yamlls = {
           schemaStore = {
@@ -161,10 +160,6 @@ return {
         },
         basedpyright = {
           settings = {
-            python = {
-              pythonPath = ".venv/bin/python3",
-              -- venvPath = ".venv",
-            },
             basedpyright = {
               -- Using Ruff's import organizer
               disableOrganizeImports = true,
@@ -190,12 +185,8 @@ return {
           },
         },
         prettier = {},
-        html = {
-          capabilities = capabilities,
-        },
-        cssls = {
-          capabilities = capabilities,
-        },
+        html = {},
+        cssls = {},
         emmet_ls = {},
         eslint = {},
         htmx = {},
