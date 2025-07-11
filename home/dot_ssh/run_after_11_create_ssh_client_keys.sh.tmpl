@@ -1,0 +1,47 @@
+#!/bin/bash
+{{ $data := (fromYaml (join .chezmoi.sourceDir "dot_ssh/secret_data.yml" | include | decrypt)) -}}
+{{ $sshDir := joinPath .chezmoi.homeDir ".ssh" -}}
+
+{{- if hasKey $data.sshClientKeys .host -}}
+echo "SSH-CLIENT | Begin creating ssh keys"
+{{ with index $data.sshClientKeys .host -}}
+{{ range $host, $keys := . -}}
+{{ $privateKeyFilePath := joinPath $sshDir $host -}}
+{{ $privateKeyFileHash := "" -}}
+{{ $privateKeyHash := sha1sum ( regexReplaceAll "\\s+" $keys.privateKey "") -}}
+{{ $publicKeyFilePath :=  printf "%s%s" (joinPath $sshDir $host) ".pub" -}}
+{{ $publicKeyFileHash := "" -}}
+{{ $publicKeyHash := sha1sum ( regexReplaceAll "\\s+" $keys.publicKey "") -}}
+
+{{ if stat $privateKeyFilePath -}}
+{{ $privateKeyFileHash = sha1sum (regexReplaceAll "\\s+" (include $privateKeyFilePath) "") }}
+{{ end -}}
+
+{{ if stat $publicKeyFilePath -}}
+{{ $publicKeyFileHash = sha1sum (regexReplaceAll "\\s+"  (include $publicKeyFilePath) "") }}
+{{ end -}}
+
+
+{{ if ne $privateKeyFileHash $privateKeyHash  -}}
+echo "SSH-CLIENT | Creating {{ $host }} private key"
+cat << 'EOF' > "{{ $privateKeyFilePath }}"
+{{ $keys.privateKey }}
+EOF
+chmod 600 "{{ $privateKeyFilePath }}"
+{{ else -}}
+echo "SSH-CLIENT | {{ $host }} private key already present"
+{{ end -}}
+
+{{ if ne $publicKeyFileHash $publicKeyHash -}}
+echo "SSH-CLIENT | Creating {{ $host }} public key"
+cat << 'EOF' > "{{ $publicKeyFilePath }}"
+{{ $keys.publicKey }}
+EOF
+chmod 600 "{{ $publicKeyFilePath }}"
+{{ else -}}
+echo "SSH-CLIENT | {{ $host }} public key already present"
+{{ end -}}
+{{ end -}}
+{{ end -}}
+echo "SSH-CLIENT | Finished creating ssh keys"
+{{ end -}}

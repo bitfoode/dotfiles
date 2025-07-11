@@ -1,0 +1,6 @@
+{{ $data := (fromYaml (join .chezmoi.sourceDir "dot_ssh/secret_data.yml" | include | decrypt)) -}}
+
+{{ if hasKey $data.sshClienConfig .host -}}
+{{ index $data.sshClienConfig .host }}
+{{ end -}}
+

@@ -1,0 +1,13 @@
+Include ~/.ssh/client.config
+
+Host *
+  ForwardAgent yes
+  AddKeysToAgent no
+  Compression yes
+  ServerAliveInterval 10
+  ServerAlivecountMax 6
+  HashKnownHosts no
+  UserKnownHostsFile ~/.ssh/known_hosts
+  ControlMaster auto
+  ControlPath ~/.ssh/control/master-%r@%n:%p
+  ControlPersist yes

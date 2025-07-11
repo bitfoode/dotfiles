@@ -79,6 +79,8 @@ packages:
         - bash
         - bash-completion
         - zsh
+        # SSH dependencies
+        - openssh
         # Git installation
         - git
         - git-lfs
@@ -154,6 +156,8 @@ packages:
       - bash
       - bash-completion
       - zsh
+      # SSH dependencies
+      - openssh
       # Git installation
       - git
       - git-lfs
