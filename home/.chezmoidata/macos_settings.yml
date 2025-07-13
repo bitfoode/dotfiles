@@ -1,0 +1,134 @@
+macosSettingsVarType:
+  int: -integer
+  int64: -integer
+  uint64: -integer
+  float64: -float
+  "[]interface {}": -array
+  "map[string]interface {}": -dict
+  string: -string
+  bool: -boolean
+
+# Default settings for documentation see
+# https://daiderd.com/nix-darwin/manual/index.html#opt-system.defaults._.GlobalPreferences_._com.apple.mouse.scaling_
+# https://macos-defaults.com/
+macosDefaultSettings:
+  NSGlobalDomain:
+    AppleEnableMouseSwipeNavigateWithScrolls: true
+    AppleEnableSwipeNavigateWithScrolls: true
+    AppleICUForce24HourTime: true
+    AppleInterfaceStyle: Dark
+    ApplePressAndHoldEnabled: true
+    AppleShowAllExtensions: true
+    AppleShowAllFiles: true
+    AppleShowScrollBars: "Automatic"
+    AppleWindowTabbingMode: "always"
+    InitialKeyRepeat: 30
+    KeyRepeat: 2
+    NSAutomaticCapitalizationEnabled: false
+    NSAutomaticPeriodSubstitutionEnabled: false
+    NSAutomaticWindowAnimationsEnabled: false
+    NSDisableAutomaticTermination: true
+    NSDocumentSaveNewDocumentsToCloud: false
+    NSNavPanelExpandedStateForSaveMode: true
+    NSNavPanelExpandedStateForSaveMode2: true
+    NSTableViewDefaultSizeMode: 1
+    NSWindowResizeTime: 0.001
+    PMPrintingExpandedStateForPrint: true
+    PMPrintingExpandedStateForPrint2: true
+    "com.apple.mouse.linear": false
+    "com.apple.mouse.scaling": 0.875
+    "com.apple.mouse.tapBehavior": 1
+    "com.apple.swipescrolldirection": false
+    "com.apple.trackpad.forceClick": true
+    "com.apple.trackpad.scaling": 6.8
+    "com.apple.scrollwheel.scaling": 1
+
+  WindowManager:
+    EnableStandardClickToShowDesktop: false
+
+  controlcenter:
+    BatteryShowPercentage: true
+
+  com.apple.dock:
+    appswitcher-all-displays: true
+    autohide: true
+    autohide-delay: 0.25
+    expose-group-by-app: true
+    launchanim: true
+    magnification: false
+    mineffect: "scale"
+    minimize-to-application: true
+    mouse-over-hilite-stack: true
+    orientation: "bottom"
+    show-process-indicators: true
+    show-recents: true
+    tilesize: 39
+    expose-group-apps: true
+    wvous-bl-corner: 1
+    wvous-br-corner: 1
+    wvous-tl-corner: 1
+    wvous-tr-corner: 1
+
+  com.apple.TextEdit:
+    RichText: false
+
+  com.apple.finder:
+    AppleShowAllExtensions: true
+    AppleShowAllFiles: true
+    FXEnableExtensionChangeWarning: false
+    FXDefaultSearchScope: "SCcf"
+    FXPreferredViewStyle: "Nlsv"
+    QuitMenuItem: false
+    ShowPathbar: true
+    ShowStatusBar: true
+    FinderSpawnTab: true
+    _FXShowPosixPathInTitle: true
+    _FXSortFoldersFirst: true
+
+  com.apple.screencapture:
+    location: "~/Desktop"
+    show-thumbnail: true
+
+  com.apple.iCal:
+    CalendarSidebarShown: true
+    "first day of week": "Monday"
+
+  com.apple.loginwindow:
+    GuestEnable: false
+
+  com.apple.menuextra.clock:
+    Show24Hour: true
+    ShowAMPM: false
+    ShowDate: 1
+    ShowDayOfMonth: true
+    ShowDayOfWeek: true
+    ShowSeconds: true
+
+  com.apple.screensaver:
+    askForPassword: true
+    askForPasswordDelay: 0
+
+  com.apple.spaces:
+    spans-displays: true
+
+  com.apple.AppleMultitouchTrackpad:
+    ActuationStrength: 1
+    Clicking: true
+    Dragging: true
+    FirstClickThreshold: 0
+    SecondClickThreshold: 0
+    TrackpadRightClick: true
+    TrackpadThreeFingerDrag: false
+
+  com.apple.desktopservices:
+    # Avoid creating .DS_Store files on network or USB volumes
+    DSDontWriteNetworkStores: true
+    DSDontWriteUSBStores: true
+
+  com.apple.AdLib:
+    allowApplePersonalizedAdvertising: false
+
+  # Prevent Photos from opening automatically when devices are plugged in
+  com.apple.ImageCapture:
+    disableHotPlug: true
+

@@ -1,0 +1,35 @@
+#!/bin/bash
+{{ $macosDefaultSettings := .macosDefaultSettings -}}
+{{ $macosSettingsVarType := .macosSettingsVarType -}}
+
+echo_prefix="MACOS-DEFAULTS |"
+
+# Check if OS is macOS
+if [[ "$(uname)" != "Darwin" ]]; then
+    echo "$echo_prefix This script can only be run on macOS. Exiting."
+    exit 0
+fi
+
+echo "$echo_prefix Applying macOS defaults..."
+
+{{ range $domain, $settings := $macosDefaultSettings -}}
+{{ range $setting, $value := $settings -}}
+{{ $settingsTypeFlag := index $macosSettingsVarType (printf "%T" $value) -}}
+defaults write {{ printf "%v %v %v %v" $domain $setting $settingsTypeFlag $value }}
+{{ end -}}
+{{ end -}}
+
+# Apply changes
+killall SystemUIServer
+killall Dock
+killall Safari
+killall Finder
+killall Terminal
+killall Xcode
+killall TextEdit
+killall "Activity Monitor"
+killall Messages
+killall Music
+/System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+
+echo "$echo_prefix Settings applied"
