@@ -22,14 +22,15 @@ return {
 
       -- Document existing key chains
       require("which-key").add({
+        { "<leader>b", group = "[B]uffer" },
         { "<leader>c", group = "[C]ode" },
         { "<leader>d", group = "[D]ocument" },
+        { "<leader>f", group = "[F]ind" },
+        { "<leader>g", group = "[G]it" },
         { "<leader>r", group = "[R]ename" },
         { "<leader>s", group = "[S]earch" },
-        { "<leader>w", group = "[W]orkspace" },
         { "<leader>t", group = "[T]oggle" },
-        { "<leader>b", group = "[B]uffer" },
-        { "<leader>h", group = "Git [H]unk", mode = { "n", "v" } },
+        { "<leader>w", group = "[W]orkspace" },
       })
     end,
   },

@@ -3,9 +3,9 @@ return {
     "coffebar/neovim-project",
     dependencies = {
       { "nvim-lua/plenary.nvim" },
-      -- optional picker
-      { "nvim-telescope/telescope.nvim" },
       { "Shatur/neovim-session-manager" },
+      -- optional picker
+      { "folke/snacks.nvim" },
       {
         "folke/noice.nvim",
         dependencies = {
@@ -137,7 +137,7 @@ return {
             vim.notify("Cache expired or missing. Regenerating...", vim.log.levels.INFO)
           end
         end
-        local projects = find_git_dirs("~/git", 50)
+        local projects = find_git_dirs({ "~/git", "~/.local/share/chezmoi" }, 50)
         write_cache(projects)
         return projects
       end
@@ -150,7 +150,7 @@ return {
       project.setup({
         projects = projects,
         picker = {
-          type = "telescope", -- or "fzf-lua"
+          type = "snacks", -- or "fzf-lua"
         },
       })
 
@@ -166,7 +166,7 @@ return {
 
       vim.keymap.set(
         "n",
-        "<leader>sp",
+        "<leader>fp",
         "<cmd>NeovimProjectDiscover<CR>",
         { silent = true, noremap = true, desc = "Search for projects and restore its session" }
       )
