@@ -25,32 +25,98 @@ return {
     },
     -- use a release tag to download pre-built binaries
     version = "1.*",
+    init = function()
+      vim.o.winborder = "rounded"
+    end,
     config = function()
-      local blink = require("blink-cmp")
-
-      local highlight = function(ctx)
-        local hl = ctx.kind_hl
-        if vim.tbl_contains({ "Path" }, ctx.source_name) then
-          local dev_icon, dev_hl = require("nvim-web-devicons").get_icon(ctx.label)
-          if dev_icon then
-            hl = dev_hl
-          end
-        end
-        return hl
-      end
-
       ---@module 'blink.cmp'
       ---@type blink.cmp.Config
-      blink.setup({
+      require("blink-cmp").setup({
         enabled = function()
-          -- Disabled to ensure no completion if using typr
-          if vim.bo.filetype == "typr" then
-            return false
-          end
           return true
         end,
+        signature = {
+          enabled = false, -- noice is handling signature drawing
+        },
+        completion = {
+          menu = {
+            scrollbar = false,
+            max_height = 25,
+            scrolloff = 5,
+            draw = {
+              columns = {
+                { "kind_icon" },
+                { "label", "label_description", gap = 1 },
+                { "kind" },
+                { "source_name" },
+              },
+              components = {
+                kind_icon = {
+                  text = function(ctx)
+                    local icon = ctx.kind_icon
+                    if vim.tbl_contains({ "Path" }, ctx.source_name) then
+                      local dev_icon, _ = require("nvim-web-devicons").get_icon(ctx.label)
+                      if dev_icon then
+                        icon = dev_icon
+                      end
+                    else
+                      icon = require("lspkind").symbolic(ctx.kind, {
+                        mode = "symbol",
+                      })
+                    end
+
+                    return icon .. ctx.icon_gap
+                  end,
+                  -- Optionally, use the highlight groups from nvim-web-devicons
+                  -- You can also add the same function for `kind.highlight` if you want to
+                  -- keep the highlight groups in sync with the icons.
+                  highlight = function(ctx)
+                    local hl = ctx.kind_hl
+                    if vim.tbl_contains({ "Path" }, ctx.source_name) then
+                      local dev_icon, dev_hl = require("nvim-web-devicons").get_icon(ctx.label)
+                      if dev_icon then
+                        hl = dev_hl
+                      end
+                    end
+                    return hl
+                  end,
+                },
+              },
+            },
+          },
+          documentation = {
+            auto_show = true,
+            window = {
+              scrollbar = false,
+            },
+          },
+          ghost_text = {
+            enabled = false,
+          },
+        },
+        cmdline = {
+          keymap = { preset = "inherit" },
+          completion = {
+            menu = {
+              auto_show = true,
+            },
+            ghost_text = {
+              enabled = true,
+            },
+          },
+        },
         sources = {
-          default = { "lsp", "path", "snippets", "buffer", "env", "emoji", "conventional_commits", "digraphs", "calc" },
+          default = {
+            "lsp",
+            "path",
+            "snippets",
+            "buffer",
+            "env",
+            "emoji",
+            "conventional_commits",
+            "digraphs",
+            "calc",
+          },
           providers = {
             -- create provider
             lsp = {
@@ -134,53 +200,6 @@ return {
                   return false
                 end,
               },
-            },
-          },
-        },
-        signature = {
-          enabled = true,
-        },
-        completion = {
-          ghost_text = {
-            enabled = true,
-          },
-          menu = {
-            draw = {
-              columns = { { "kind_icon" }, { "label", "label_description", gap = 1 }, { "kind" }, { "source_name" } },
-              components = {
-                kind_icon = {
-                  text = function(ctx)
-                    local icon = ctx.kind_icon
-                    if vim.tbl_contains({ "Path" }, ctx.source_name) then
-                      local dev_icon, _ = require("nvim-web-devicons").get_icon(ctx.label)
-                      if dev_icon then
-                        icon = dev_icon
-                      end
-                    else
-                      icon = require("lspkind").symbolic(ctx.kind, {
-                        mode = "symbol",
-                      })
-                    end
-
-                    return icon .. ctx.icon_gap
-                  end,
-                  -- Optionally, use the highlight groups from nvim-web-devicons
-                  -- You can also add the same function for `kind.highlight` if you want to
-                  -- keep the highlight groups in sync with the icons.
-                  highlight = highlight,
-                },
-              },
-            },
-          },
-        },
-        cmdline = {
-          keymap = { preset = "inherit" },
-          completion = {
-            menu = {
-              auto_show = true,
-            },
-            ghost_text = {
-              enabled = true,
             },
           },
         },
