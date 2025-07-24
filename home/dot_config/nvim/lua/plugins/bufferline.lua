@@ -2,22 +2,22 @@ return {
   {
     "akinsho/bufferline.nvim",
     dependencies = "nvim-tree/nvim-web-devicons",
+    init = function()
+      vim.o.mousemoveevent = true -- Used for hover in dropbar on mouseover
+    end,
     config = function()
       vim.o.termguicolors = true
       local bl = require("bufferline")
+      ---@module 'bufferline'
+      ---@type bufferline.UserConfig
       bl.setup({
         options = {
           mode = "buffers",
-          style_presets = bl.style_preset.no_bold,
           indicator = { style = "underline" },
           diagnostics = "nvim_lsp",
-          diagnostics_indicator = function(count, level, _, context)
-            if context.buffer:current() then
-              return ""
-            end
-
-            local icon = level:match("error") and " " or " "
-            return " " .. icon .. count
+          diagnostics_indicator = function(count, level, _, _)
+            local icon = level:match("error") and "" or (level:match("warning") and "" or "")
+            return icon .. count
           end,
           offsets = {
             {
