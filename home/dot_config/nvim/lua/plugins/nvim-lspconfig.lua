@@ -219,6 +219,7 @@ return {
         -- tsserver = {},
         --
 
+        tombi = {},
         lua_ls = {
           -- cmd = {...},
           -- filetypes = { ...},
