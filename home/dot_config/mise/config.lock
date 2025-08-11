@@ -14,19 +14,22 @@ backend = "pipx:ansible-core[uvx_args=--with ansible]"
 version = "3.0.12"
 backend = "aqua:argoproj/argo-cd"
 
-[tools.argocd.platforms.macos-arm64]
-checksum = "sha256:37904a99c178dc305645ce0bd51c262fbab8cef01dab1506dbb9ae4d6aab90f9"
-size = 206438082
-url = "https://github.com/argoproj/argo-cd/releases/download/v3.0.12/argocd-darwin-arm64"
+[tools.argocd.checksums]
+argocd-darwin-arm64 = "sha256:37904a99c178dc305645ce0bd51c262fbab8cef01dab1506dbb9ae4d6aab90f9"
+
+[tools.aws-cli]
+version = "2.28.4"
+backend = "aqua:aws/aws-cli"
+
+[tools.aws-cli.checksums]
+"AWSCLIV2-2.28.4.pkg" = "sha256:e101f26b2a84f409b6d9b7f67a4a07e2d2683adc2ec1cd71b2807966b64d76bb"
 
 [tools.awscli]
 version = "2.27.62"
 backend = "aqua:aws/aws-cli"
 
-[tools.awscli.platforms.macos-arm64]
-checksum = "blake3:5d06a8e1f984ada7b0af1ed410ca418c57a8d0ab95ac041ebfb0a472f25dffb8"
-size = 39573057
-url = "https://awscli.amazonaws.com/AWSCLIV2-2.27.62.pkg"
+[tools.awscli.checksums]
+"AWSCLIV2-2.27.62.pkg" = "sha256:cb23b3ac76f8345b231db2b1d6101f8f66bbf007e19e199b77e4b07e81bcdc6e"
 
 [tools.bat]
 version = "0.25.0"
@@ -40,11 +43,6 @@ backend = "asdf:bat-extras"
 version = "1.14.2"
 backend = "aqua:cargo-bins/cargo-binstall"
 
-[tools.cargo-binstall.platforms.macos-arm64]
-checksum = "blake3:a53a2bcd8eb367076cab636cf97ffa247982d79c9d7aadb47caaf9ed2bb9f2e7"
-size = 6086653
-url = "https://github.com/cargo-bins/cargo-binstall/releases/download/v1.14.2/cargo-binstall-aarch64-apple-darwin.zip"
-
 [tools."cargo:rustscan"]
 version = "2.4.1"
 backend = "cargo:rustscan"
@@ -52,9 +50,6 @@ backend = "cargo:rustscan"
 [tools.chezmoi]
 version = "2.63.1"
 backend = "ubi:twpayne/chezmoi"
-
-[tools.chezmoi.platforms.macos-arm64-chezmoi]
-checksum = "blake3:4e86125ca47f2832b66ab0f8b69a4acd75ec5b6a009f9f36da4841093de796e0"
 
 [tools.copier]
 version = "9.8.0"
@@ -64,19 +59,12 @@ backend = "pipx:copier"
 version = "2.5.3"
 backend = "aqua:sigstore/cosign"
 
-[tools.cosign.platforms.macos-arm64]
-checksum = "sha256:86e0cad94d0da4c0dab5e26672ede71447a08a0f0d8495b9381c117df27d7d09"
-size = 152385074
-url = "https://github.com/sigstore/cosign/releases/download/v2.5.3/cosign-darwin-arm64"
-
 [tools.dagger]
 version = "0.18.14"
 backend = "aqua:dagger/dagger"
 
-[tools.dagger.platforms.macos-arm64]
-checksum = "sha256:c8646f662b75caf7226b83d840cf7a31533801514b06c1ea7e35e3e456fc894e"
-size = 18606440
-url = "https://github.com/dagger/dagger/releases/download/v0.18.14/dagger_v0.18.14_darwin_arm64.tar.gz"
+[tools.dagger.checksums]
+"dagger_v0.18.14_darwin_arm64.tar.gz" = "sha256:c8646f662b75caf7226b83d840cf7a31533801514b06c1ea7e35e3e456fc894e"
 
 [tools.delta]
 version = "0.18.2"
@@ -102,10 +90,8 @@ backend = "aqua:sharkdp/fd"
 version = "0.65.0"
 backend = "aqua:junegunn/fzf"
 
-[tools.fzf.platforms.macos-arm64]
-checksum = "sha256:9e4dfe01a67020a19861c881fd2ffbb8dd19b118b15e82e8fae83c578ca61ab7"
-size = 1657463
-url = "https://github.com/junegunn/fzf/releases/download/v0.65.0/fzf-0.65.0-darwin_arm64.tar.gz"
+[tools.fzf.checksums]
+"fzf-0.65.0-darwin_arm64.tar.gz" = "sha256:9e4dfe01a67020a19861c881fd2ffbb8dd19b118b15e82e8fae83c578ca61ab7"
 
 [tools.gdu]
 version = "5.31.0"
@@ -119,11 +105,6 @@ backend = "aqua:gabrie30/ghorg"
 version = "2.10.0"
 backend = "aqua:orhun/git-cliff"
 
-[tools.git-cliff.platforms.macos-arm64]
-checksum = "sha512:349a6d47b41cd57462148ce94ff1c1b0b0f8eba3f0abfce4af4e5164f74acda15b63808ddf1dc723cad2cb688ce307a22628e539e2a5a4f3c29c779b935409c8"
-size = 6638495
-url = "https://github.com/orhun/git-cliff/releases/download/v2.10.0/git-cliff-2.10.0-x86_64-apple-darwin.tar.gz"
-
 [tools.glow]
 version = "2.1.1"
 backend = "aqua:charmbracelet/glow"
@@ -132,14 +113,13 @@ backend = "aqua:charmbracelet/glow"
 version = "1.24.5"
 backend = "core:go"
 
+[tools."go:github.com/spf13/cobra-cli"]
+version = "1.3.0"
+backend = "go:github.com/spf13/cobra-cli"
+
 [tools.golangci-lint]
 version = "2.3.0"
 backend = "aqua:golangci/golangci-lint"
-
-[tools.golangci-lint.platforms.macos-arm64]
-checksum = "sha256:4dffaba06a8ca55bdb879ece5be44d4f39971cbd6f96650ded9761d34a62533a"
-size = 13606037
-url = "https://github.com/golangci/golangci-lint/releases/download/v2.3.0/golangci-lint-2.3.0-darwin-arm64.tar.gz"
 
 [tools.hadolint]
 version = "2.12.0"
@@ -157,11 +137,6 @@ backend = "aqua:jqlang/jq"
 version = "0.50.9"
 backend = "aqua:derailed/k9s"
 
-[tools.k9s.platforms.macos-arm64]
-checksum = "sha256:30a91c1b91a52086f34a0a24c6b4ee8477fc360cd4d3c4d413a514ff2f308bd9"
-size = 36711739
-url = "https://github.com/derailed/k9s/releases/download/v0.50.9/k9s_Darwin_arm64.tar.gz"
-
 [tools.kube-linter]
 version = "0.7.4"
 backend = "aqua:stackrox/kube-linter"
@@ -169,11 +144,6 @@ backend = "aqua:stackrox/kube-linter"
 [tools.kubectl]
 version = "1.33.3"
 backend = "aqua:kubernetes/kubectl"
-
-[tools.kubectl.platforms.macos-arm64]
-checksum = "sha256:3de173356753bacb215e6dc7333f896b7f6ab70479362146c6acca6e608b3f53"
-size = 59375330
-url = "https://dl.k8s.io/v1.33.3/bin/darwin/arm64/kubectl"
 
 [tools.kubectx]
 version = "0.9.5"
@@ -186,11 +156,6 @@ backend = "aqua:ahmetb/kubectx/kubens"
 [tools.kustomize]
 version = "5.7.1"
 backend = "aqua:kubernetes-sigs/kustomize"
-
-[tools.kustomize.platforms.macos-arm64]
-checksum = "blake3:68a11db5c9cd00f85a5a65e6ba04a048256a79b209aeb94845943fca42c3ec36"
-size = 5516432
-url = "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v5.7.1/kustomize_v5.7.1_darwin_arm64.tar.gz"
 
 [tools.lazygit]
 version = "0.53.0"
@@ -208,13 +173,8 @@ backend = "asdf:mc"
 version = "0.11.3"
 backend = "aqua:neovim/neovim"
 
-[tools.neovim.platforms.macos-arm64]
-checksum = "blake3:90c6560ae5281ccdb9cc0f3fa38ba3572d7b4c5f85bd048b0d8481b7b25c8015"
-size = 9180192
-url = "https://github.com/neovim/neovim/releases/download/v0.11.3/nvim-macos-arm64.tar.gz"
-
 [tools.node]
-version = "22.17.1"
+version = "22.17.0"
 backend = "core:node"
 
 [tools."pipx:trash-cli"]
@@ -261,11 +221,6 @@ backend = "aqua:aquasecurity/trivy"
 version = "0.7.3"
 backend = "aqua:houseabsolute/ubi"
 
-[tools.ubi.platforms.macos-arm64]
-checksum = "sha256:edc643053f24dafb1eb0f0008c35161e1301836a18f4faddd9c84b55111bcf08"
-size = 3446894
-url = "https://github.com/houseabsolute/ubi/releases/download/v0.7.3/ubi-macOS-arm64.tar.gz"
-
 [tools."ubi:cantino/mcfly"]
 version = "0.9.3"
 backend = "ubi:cantino/mcfly"
@@ -274,15 +229,9 @@ backend = "ubi:cantino/mcfly"
 version = "r36"
 backend = "ubi:gokcehan/lf"
 
-[tools."ubi:gokcehan/lf".platforms.macos-arm64-lf]
-checksum = "blake3:bb291cf4d72fa102a91a170e1bd0d2a127b6d0b32f39e9412f0b29bc1202dd51"
-
 [tools."ubi:kopia/kopia"]
 version = "0.21.1"
 backend = "ubi:kopia/kopia"
-
-[tools."ubi:kopia/kopia".platforms.macos-arm64-kopia]
-checksum = "blake3:f5d24cf990338c1773b7373717126714d8866bcbdfbcd08caa96f4fc41208680"
 
 [tools."ubi:nickgerace/gfold"]
 version = "2025.4.0"
@@ -296,35 +245,20 @@ backend = "ubi:tealdeer-rs/tealdeer"
 version = "0.8.3"
 backend = "aqua:astral-sh/uv"
 
-[tools.uv.platforms.macos-arm64]
-checksum = "sha256:9ebfe9f3b51187932ef97270b689da48261acacadd6ea7018d2cc62719c86ffe"
-size = 16667462
-url = "https://github.com/astral-sh/uv/releases/download/0.8.3/uv-aarch64-apple-darwin.tar.gz"
-
 [tools.velero]
 version = "1.16.2"
 backend = "aqua:vmware-tanzu/velero"
 
-[tools.velero.platforms.macos-arm64]
-checksum = "sha256:79c2c32e990a37a6e67de3a85d767e0ae89488e7a63a468a9b4eb69e4a5f698e"
-size = 53831343
-url = "https://github.com/vmware-tanzu/velero/releases/download/v1.16.2/velero-v1.16.2-darwin-arm64.tar.gz"
+[tools.velero.checksums]
+"velero-v1.16.2-darwin-arm64.tar.gz" = "sha256:79c2c32e990a37a6e67de3a85d767e0ae89488e7a63a468a9b4eb69e4a5f698e"
 
 [tools.yq]
 version = "4.47.1"
 backend = "aqua:mikefarah/yq"
 
-[tools.yq.platforms.macos-arm64]
-checksum = "blake3:576374b350e23e8a83123dbb2008bb9115c27cc6569699bfdd6b034562969f16"
-size = 11079202
-url = "https://github.com/mikefarah/yq/releases/download/v4.47.1/yq_darwin_arm64"
-
 [tools.yt-dlp]
 version = "2025.07.21"
 backend = "ubi:yt-dlp/yt-dlp"
-
-[tools.yt-dlp.platforms.macos-arm64-yt-dlp]
-checksum = "blake3:3bf76f91fc9bbcc4763a06dbd56e2300f4e71eaab7e646b97e44ecff6b330e70"
 
 [tools.zoxide]
 version = "0.9.8"
