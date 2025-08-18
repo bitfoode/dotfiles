@@ -15,6 +15,18 @@ return {
         use_popups_for_input = true,
         source_selector = {
           winbar = true, -- toggle to show selector on winbar
+          truncation_character = "…",
+        },
+        filesystem = {
+          use_libuv_file_watcher = true,
+          filtered_items = {
+            visible = true,
+            hide_dotfiles = false,
+            hide_gitignored = false,
+          },
+          follow_current_file = {
+            enabled = true,
+          },
         },
         default_component_configs = {
           indent = {
