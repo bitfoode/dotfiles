@@ -37,8 +37,6 @@ packages:
         - db-browser-for-sqlite
         - keepassxc
         - onedrive
-        - obsidian
-        - spotify
         - visual-studio-code
         # podman dependencies
         - podman-desktop
@@ -204,4 +202,3 @@ packages:
       - com.spotify.Client
       - com.nextcloud.desktopclient.nextcloud
       - com.spotify.Client
-
