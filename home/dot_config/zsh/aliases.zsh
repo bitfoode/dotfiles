@@ -20,21 +20,21 @@ alias df="df -h"
 # Reload zshrc
 alias zre="source $XDG_CONFIG_HOME/zsh/.zshrc"
 
-if command -v netstat &> /dev/null; then
+if command -v netstat &>/dev/null; then
     alias ports="netstat -tlpen"
 fi
 
 # Kubernetes aliases
-if command -v kubectl &> /dev/null; then
+if command -v kubectl &>/dev/null; then
     alias k="kubectl"
 fi
-if command -v kubectx &> /dev/null; then
+if command -v kubectx &>/dev/null; then
     alias kns="kubens"
     alias kct="kubectx"
 fi
 
 # git aliase
-if command -v git &> /dev/null; then
+if command -v git &>/dev/null; then
     alias ggrep="git grep"
     alias gst="git status"
     alias gad="git add"
@@ -61,30 +61,30 @@ _sysupgrade() {
 }
 alias sysupgrade=_sysupgrade
 
-if command -v btop &> /dev/null; then
+if command -v btop &>/dev/null; then
     alias top=btop
 fi
 
-if command -v nvim &> /dev/null; then
+if command -v nvim &>/dev/null; then
     alias vimdiff="nvim -d"
     alias vim="nvim"
     alias vi="nvim"
 fi
 
-if command -v lazygit &> /dev/null; then
+if command -v lazygit &>/dev/null; then
     alias lg="lazygit"
 fi
 
-if command -v nvim &> /dev/null; then
+if command -v nvim &>/dev/null; then
     alias vi=nvim
     alias vim=nvim
 fi
 
-if command -v podman &> /dev/null; then
+if command -v podman &>/dev/null; then
     alias docker=podman
 fi
 
-if command -v eza &> /dev/null; then
+if command -v eza &>/dev/null; then
     export EZA_CONFIG_DIR="$XDG_CONFIG_HOME/eza"
     alias eza="eza --icons --group-directories-first --group --header --mounts --git"
     alias la="eza -a"
@@ -95,7 +95,7 @@ if command -v eza &> /dev/null; then
     alias tree="eza --tree"
 fi
 
-if command -v bat &> /dev/null; then
+if command -v bat &>/dev/null; then
     # Set bat theme
     export BAT_THEME="tokyonight_storm"
     # Alias cat to bat
@@ -103,6 +103,6 @@ if command -v bat &> /dev/null; then
     alias man="batman"
 fi
 
-if command -v rg &> /dev/null; then
+if command -v rg &>/dev/null; then
     alias grep="rg"
 fi

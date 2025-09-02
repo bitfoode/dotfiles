@@ -66,13 +66,13 @@ gdu = "latest"
 # enable exeperimental options, mainly for using go, ubi pipx bacend
 experimental = true
 # configure the directories outside of HOME
-rust.rustup_home = '{{ joinPath .chezmoi.homeDir ".local/share/mise/rustup" }}'
-rust.cargo_home = '{{ joinPath .chezmoi.homeDir ".local/share/mise/cargo" }}'
+rust.rustup_home = "{{ joinPath .chezmoi.homeDir ".local/share/mise/rustup" }}"
+rust.cargo_home = "{{ joinPath .chezmoi.homeDir ".local/share/mise/cargo" }}"
 cargo.binstall = true
 # Using uvx backend instead of pipx
 pipx.uvx = true
 # Trust all paths in ~/git
 trusted_config_paths = [
-    '{{ joinPath .chezmoi.homeDir "git" }}',
+  "{{ joinPath .chezmoi.homeDir "git" }}",
 ]
 idiomatic_version_file_enable_tools = []
