@@ -4,7 +4,6 @@ packages:
       brews:
         - nvtop
         - sqlite
-        - dagger
         # podman dependencies
         - podman
       casks:
@@ -29,7 +28,6 @@ packages:
       brews:
         - nvtop
         - sqlite
-        - dagger
         # podman dependencies
         - podman
       casks:
