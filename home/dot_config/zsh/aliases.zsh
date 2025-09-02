@@ -106,3 +106,12 @@ fi
 if command -v rg &>/dev/null; then
     alias grep="rg"
 fi
+
+_notes() {
+    local vault="$HOME/git/git.vonessen.eu/dvonessen/notes"
+    cd "$vault"
+    nvim .
+}
+alias notes=_notes
+alias note=_notes
+alias obsidian=_notes

@@ -113,6 +113,7 @@ packages:
         # neovim dependencies
         - luarocks
         - gcc
+        - pngpaste
       casks:
         # wezterm dependencies
         - wezterm
