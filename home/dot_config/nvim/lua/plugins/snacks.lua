@@ -73,6 +73,13 @@ return {
       -- Start Pickers
       -- find
       {
+        "<leader><space>",
+        function()
+          Snacks.picker.buffers()
+        end,
+        desc = "Buffers",
+      },
+      {
         "<leader>fb",
         function()
           Snacks.picker.buffers()
@@ -88,6 +95,13 @@ return {
       },
       {
         "<leader>ff",
+        function()
+          Snacks.picker.files({ hidden = true })
+        end,
+        desc = "Find Files",
+      },
+      {
+        "<leader>sf",
         function()
           Snacks.picker.files({ hidden = true })
         end,
