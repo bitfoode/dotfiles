@@ -230,6 +230,8 @@ return {
         "ansible-lint",
         "shellcheck",
         "shfmt",
+        "markdownlint-cli2",
+        "markdown-toc",
       })
 
       -- Install hadolint only on non Darwin arm64 platforms

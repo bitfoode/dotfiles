@@ -17,7 +17,7 @@ return {
     ---@type conform.setupOpts
     opts = {
       notify_on_error = true,
-      format_on_save = { async = true },
+      format_on_save = {},
       default_format_opts = {
         lsp_format = "fallback",
       },
@@ -25,7 +25,8 @@ return {
         lua = { "stylua" },
         python = { "ruff_organize_imports", "ruff_fix", "ruff_format" },
         go = { "golangci-lint" },
-        -- markdown = { "prettier" },
+        ["markdown"] = { "prettier", "markdownlint-cli2", "markdown-toc" },
+        ["markdown.mdx"] = { "prettier", "markdownlint-cli2", "markdown-toc" },
       },
     },
   },

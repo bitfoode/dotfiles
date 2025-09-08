@@ -4,11 +4,10 @@ return {
     dependencies = {
       {
         "MeanderingProgrammer/render-markdown.nvim",
-        dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" }, -- if you prefer nvim-web-devicons
-        ---@module 'render-markdown'
-        ---@type render.md.UserConfig
-        opts = {
-          preset = "obsidian",
+        ft = { "markdown", "md" },
+        dependencies = {
+          "nvim-treesitter/nvim-treesitter",
+          "nvim-tree/nvim-web-devicons",
         },
       },
     },
@@ -39,6 +38,7 @@ return {
           path = vim.fn.expand("~") .. "/git/git.vonessen.eu/dvonessen/notes",
         },
       },
+      notes_subdir = "notes",
       completion = {
         nvim_cmp = false,
         blink = true,
@@ -100,11 +100,16 @@ return {
             if vim.fn.getcwd():sub(1, #vault_dir) == vault_dir then
               local timer = vim.uv.new_timer()
               timer:start(
-                0,
+                save_time_minutes * 1000 * 60,
                 save_time_minutes * 1000 * 60,
                 vim.schedule_wrap(require("custom.obsidian-plugins").auto_commit)
               )
               vim.notify(("Auto commiting changes every %s minutes"):format(save_time_minutes), vim.log.levels.INFO)
+              vim.api.nvim_create_autocmd({ "VimLeavePre" }, {
+                callback = function(_)
+                  require("custom.obsidian-plugins").auto_commit()
+                end,
+              })
             end
           end
         end,
