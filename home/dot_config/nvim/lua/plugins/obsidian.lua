@@ -13,20 +13,19 @@ return {
     },
     version = "*", -- recommended, use latest release instead of latest commit
     ft = "markdown",
-    -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
-    event = {
-      "BufEnter " .. vim.fn.expand("~") .. "/git/bitfoode/obsidian/*.md",
-      "BufReadPre " .. vim.fn.expand("~") .. "/git/bitfoode/obsidian/*.md",
-      "BufNewFile " .. vim.fn.expand("~") .. "/git/bitfoode/obsidian/*.md",
-    },
     keys = {
-      {
-        "<leader>ww",
-        function()
-          vim.cmd("cd " .. Obsidian.opts.workspaces[1].path)
-          vim.cmd("e index.md")
-        end,
-      },
+      { "<leader>wn", "<cmd>Obsidian new_from_template<CR>", desc = "Create new note from template" },
+      { "<leader>wt", "<cmd>Obsidian new_from_template<CR>", desc = "Create new note from template" },
+      { "<leader>wN", "<cmd>Obsidian new<CR>", desc = "Create new note" },
+      { "<leader>wT", "<cmd>Obsidian template<CR>", desc = "Insert template into current note" },
+      { "<leader>wp", "<cmd>Obsidian paste_img<CR>", desc = "Paste image into note" },
+      { "<leader>wsh", "<cmd>Obsidian toc<CR>", desc = "Show table of contents in note" },
+      { "<leader>wsw", "<cmd>Obsidian workspace<CR>", desc = "Show all workspaces" },
+      { "<leader>wsb", "<cmd>Obsidian backlinks<CR>", desc = "Search Notes backinks" },
+      { "<leader>wst", "<cmd>Obsidian tags<CR>", desc = "Search for tags" },
+      { "<leader>wss", "<cmd>Obsidian search<CR>", desc = "Search in notes" },
+      { "<leader>wss", "<cmd>Obsidian qicke_switch<CR>", desc = "Search for notes" },
+      { "<leader>wsl", "<cmd>Obsidian links<CR>", desc = "Search links in note" },
     },
     ---@module 'obsidian'
     ---@type obsidian.config
@@ -39,6 +38,7 @@ return {
         },
       },
       notes_subdir = "notes",
+      new_notes_location = "notes_subdir",
       completion = {
         nvim_cmp = false,
         blink = true,
@@ -48,16 +48,17 @@ return {
       picker = {
         name = "snacks.pick",
       },
-      attachments = {
-        img_folder = "./",
-      },
       note_id_func = function(title)
-        return title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+        return title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):gsub("%-%-", "-"):lower()
       end,
       note_frontmatter_func = function(note)
         -- Add the title of the note as an alias.
-        if note.title then
-          note:add_alias(note.title)
+        local title = note.title
+        if title ~= nil and title ~= "" then
+          if string.byte(title, 1) > 224 then
+            title = title:sub(6)
+          end
+          note:add_alias(title)
         end
 
         if not note:get_field("creation_date") then
@@ -65,7 +66,7 @@ return {
         end
 
         if not note:get_field("summary") then
-          vim.ui.input({ prompt = "Short summary for this note: " }, function(input)
+          vim.ui.input({ prompt = "Short summary for this note:" }, function(input)
             if input == nil then
               input = ""
             end
@@ -90,6 +91,77 @@ return {
 
         return out
       end,
+      templates = {
+        folder = "resources/templates",
+        substitutions = {
+          current_full_date = function(_)
+            return tostring(os.date("%A %d. %B %Y"))
+          end,
+          meeting_schedule = function(_)
+            local schedule
+            vim.ui.input(
+              { prompt = "Date/Time when meeting takes/took place:", default = os.date("%Y-%m-%d %H:%M") },
+              function(input)
+                schedule = input
+              end
+            )
+            return tostring(schedule)
+          end,
+          week_number = function(_)
+            return tostring(os.date("%V"))
+          end,
+          weekly_title = function(_)
+            local today = os.date("*t")
+            -- substract 2 will always calculate the day offset cause monday is second(2) day of the week
+            local offset_to_fist_day_of_week = today.wday - 2
+            -- Turnaround to use the sunday to substract until monday
+            if offset_to_fist_day_of_week < 0 then
+              offset_to_fist_day_of_week = 6
+            end
+            local first_work_day_of_week = os.date(
+              "%d",
+              os.time({ day = today.day - offset_to_fist_day_of_week, month = today.month, year = today.year })
+            )
+            local last_work_day_of_week = os.date(
+              "%d",
+              os.time({ day = (today.day - offset_to_fist_day_of_week) + 4, month = today.month, year = today.year })
+            )
+
+            --- Format: January 07-11, 2020 Week 08
+            return string.format(
+              "%s %s-%s, %s Week %s",
+              os.date("%B"), -- Long month name e.g. January, February ...
+              first_work_day_of_week,
+              last_work_day_of_week,
+              today.year,
+              os.date("%V") -- Week number of current week
+            )
+          end,
+        },
+        customizations = {
+          work_weekly = {
+            notes_subdir = "work/weeklies",
+            note_id_func = function(_, _)
+              return string.format("Weekly %s-W%s", os.date("%Y"), os.date("%V"))
+            end,
+          },
+          work_log = {
+            notes_subdir = "work/logs",
+            note_id_func = function(title, _)
+              return Obsidian.opts.note_id_func(title)
+            end,
+          },
+          work_meeting = {
+            notes_subdir = "work/meetings",
+            note_id_func = function(title, _)
+              return Obsidian.opts.note_id_func(title)
+            end,
+          },
+        },
+      },
+      attachments = {
+        img_folder = "resources/images",
+      },
       callbacks = {
         post_set_workspace = function(workspace)
           local vault_dir = workspace.path.filename
