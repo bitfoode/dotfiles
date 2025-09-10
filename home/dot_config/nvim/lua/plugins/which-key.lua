@@ -30,6 +30,7 @@ return
       { "<leader>s", group = "[S]earch" },
       { "<leader>t", group = "[T]oggle" },
       { "<leader>w", group = "[W]orkspace" },
+      { "<leader>i", group = "[I]sert" },
     })
   end,
 }
