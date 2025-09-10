@@ -282,4 +282,5 @@ require("lazy").setup({
 })
 
 require("config.filetypes").setup()
+require("config.keymaps").setup()
 -- vim: ts=2 sts=2 sw=2 et
