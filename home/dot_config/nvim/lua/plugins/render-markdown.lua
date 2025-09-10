@@ -10,16 +10,12 @@ return {
   opts = {
     render_modes = { "n", "c", "t" },
     heading = {
-      sign = false,
       position = "inline",
       icons = { "󰬺 ", "󰬻 ", "󰬼 ", "󰬽 ", "󰬾 ", "󰬿 " },
     },
     code = {
       width = "block",
       right_pad = 1,
-      language_icon = false,
-      language_info = true,
-      language_name = false,
     },
     completions = {
       lsp = {
