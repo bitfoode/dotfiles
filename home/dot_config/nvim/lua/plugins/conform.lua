@@ -17,7 +17,7 @@ return {
     ---@type conform.setupOpts
     opts = {
       notify_on_error = true,
-      format_on_save = { lsp_format = "fallback" },
+      format_on_save = {},
       default_format_opts = {
         lsp_format = "fallback",
       },
