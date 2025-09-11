@@ -36,14 +36,21 @@ return {
     config = function()
       -- Configure vim.diagnostic output and format
       vim.diagnostic.config({
-        virtual_text = {
-          source = true,
-          virt_text_pos = "right_align",
-        },
+        virtual_text = false,
+        underline = true,
+        signs = true,
         float = {
           source = true,
           severity_sort = true,
         },
+      })
+      vim.api.nvim_create_autocmd("CursorHold", {
+        callback = function()
+          vim.defer_fn(function()
+            vim.diagnostic.open_float(nil, { focusable = false })
+          end, 3000)
+        end,
+        desc = "Show floating diagnostic on CursorHold",
       })
 
       -- This function gets run when an LSP attaches to a particular buffer.
