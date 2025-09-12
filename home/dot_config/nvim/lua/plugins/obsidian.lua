@@ -111,21 +111,9 @@ return {
             return tostring(os.date("%V"))
           end,
           weekly_title = function(_)
-            local today = os.date("*t")
-            -- substract 2 will always calculate the day offset cause monday is second(2) day of the week
-            local offset_to_fist_day_of_week = today.wday - 2
-            -- Turnaround to use the sunday to substract until monday
-            if offset_to_fist_day_of_week < 0 then
-              offset_to_fist_day_of_week = 6
-            end
-            local first_work_day_of_week = os.date(
-              "%d",
-              os.time({ day = today.day - offset_to_fist_day_of_week, month = today.month, year = today.year })
-            )
-            local last_work_day_of_week = os.date(
-              "%d",
-              os.time({ day = (today.day - offset_to_fist_day_of_week) + 4, month = today.month, year = today.year })
-            )
+            local obp = require("custom.obsidian-plugins")
+            local first_work_day_of_week = os.date("%d", obp.get_date_of_weekday())
+            local last_work_day_of_week = os.date("%d", obp.get_date_of_weekday(5))
 
             --- Format: January 07-11, 2020 Week 08
             return string.format(
@@ -133,12 +121,44 @@ return {
               os.date("%B"), -- Long month name e.g. January, February ...
               first_work_day_of_week,
               last_work_day_of_week,
-              today.year,
+              os.date("%Y"),
               os.date("%V") -- Week number of current week
             )
           end,
+          full_week_dates = function(_)
+            local obp = require("custom.obsidian-plugins")
+
+            local week_dates = ""
+            for i = 1, 7 do
+              local date_of_workday_day = obp.get_date_of_weekday(i)
+              week_dates = week_dates
+                .. string.format(
+                  "## 📅 %s %s. %s %s",
+                  os.date("%A", date_of_workday_day), -- Long month name e.g. January, February ...
+                  os.date("%d", date_of_workday_day),
+                  os.date("%B", date_of_workday_day),
+                  os.date("%Y", date_of_workday_day) -- Week number of current week
+                )
+              if i < 7 then
+                week_dates = week_dates .. "\n\n"
+              end
+            end
+            return week_dates
+          end,
         },
         customizations = {
+          private_weekly = {
+            notes_subdir = "private/weeklies",
+            note_id_func = function(_, _)
+              return Obsidian.opts.note_id_func(string.format("Private Weekly %s-W%s", os.date("%Y"), os.date("%V")))
+            end,
+          },
+          private_log = {
+            notes_subdir = "private/logs",
+            note_id_func = function(title, _)
+              return Obsidian.opts.note_id_func(title)
+            end,
+          },
           work_weekly = {
             notes_subdir = "work/weeklies",
             note_id_func = function(_, _)
@@ -189,6 +209,9 @@ return {
     },
     init = function()
       vim.o.conceallevel = 2
+      -- Disable wraping of lines, that makes long table lines possible
+      vim.o.wrap = false
+      vim.o.fixeol = false
     end,
   },
 }

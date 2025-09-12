@@ -64,4 +64,23 @@ function M.auto_commit()
   end, function() end)
 end
 
+---@param day? integer # Day of week number Monday=1, Tuesday=2 ...
+---@return integer # Time object of given day, use os.date("%d", get_date_of_weekday()) to get the date from Monday
+function M.get_date_of_weekday(day)
+  if day == nil then
+    day = 0
+  else
+    day = day - 1 -- create the correct offset
+  end
+
+  local today = os.date("*t")
+  -- substract 2 will always calculate the day offset cause monday is second(2) day of the week
+  local offset_to_first_day_of_week = today.wday - 2
+  -- Turnaround to use the sunday to substract until monday
+  if offset_to_first_day_of_week < 0 then
+    offset_to_first_day_of_week = 6
+  end
+  return os.time({ day = (today.day - offset_to_first_day_of_week) + day, month = today.month, year = today.year })
+end
+
 return M
