@@ -158,7 +158,7 @@ vim.opt.splitbelow = true
 vim.opt.spell = false
 vim.opt.spelllang = { "en_us", "de_de" }
 -- Toggle spell check
-vim.keymap.set("n", "<leader>sc", "<cmd>set spell!<CR>", { desc = "Toggle [s]pell [c]heck" })
+vim.keymap.set("n", "<leader>tsc", "<cmd>set spell!<CR>", { desc = "Toggle [s]pell [c]heck" })
 
 -- Sets how neovim will display certain whitespace characters in the editor.
 --  See `:help 'list'`
