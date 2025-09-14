@@ -107,6 +107,13 @@ if command -v rg &>/dev/null; then
     alias grep="rg"
 fi
 
+_chezmoi_source_dir() {
+    local chezmoit_source_dir="$HOME/.local/share/chezmoi"
+    cd "$chezmoit_source_dir"
+    nvim .
+}
+alias dots=_chezmoi_source_dir
+
 _notes() {
     local vault="$HOME/git/git.vonessen.eu/dvonessen/notes"
     cd "$vault"
