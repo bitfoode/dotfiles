@@ -17,7 +17,6 @@ packages:
         - nextcloud
         - obsidian
         - rustdesk
-        - spotify
         - steam
         - visual-studio-code
         - vlc
@@ -44,9 +43,7 @@ packages:
     flatpak:
       - com.bitwarden.desktop
       - org.ferdium.Ferdium
-      - com.spotify.Client
       - com.nextcloud.desktopclient.nextcloud
-      - com.spotify.Client
   all:
     darwin:
       brews:
@@ -199,6 +196,4 @@ packages:
       - org.wezfurlong.wezterm
       - com.bitwarden.desktop
       - org.ferdium.Ferdium
-      - com.spotify.Client
       - com.nextcloud.desktopclient.nextcloud
-      - com.spotify.Client
