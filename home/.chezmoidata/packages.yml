@@ -18,7 +18,6 @@ packages:
         - obsidian
         - rustdesk
         - steam
-        - visual-studio-code
         - vlc
         # podman dependencies
         - podman-desktop
