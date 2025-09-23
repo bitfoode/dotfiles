@@ -14,7 +14,6 @@ return {
       icons = { "󰬺 ", "󰬻 ", "󰬼 ", "󰬽 ", "󰬾 ", "󰬿 " },
     },
     code = {
-      width = "block",
       right_pad = 1,
     },
     completions = {
