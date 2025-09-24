@@ -31,6 +31,9 @@ return {
     ---@type obsidian.config
     opts = {
       legacy_commands = false,
+      ui = {
+        enable = false,
+      },
       workspaces = {
         {
           name = "Home Wiki",
