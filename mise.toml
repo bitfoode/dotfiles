@@ -1,0 +1,9 @@
+[tools]
+chezmoi = "latest"
+sops = "latest"
+
+[env]
+_.file = "secrets/env.json"
+
+[settings.sops]
+age_key_file = "./secrets/keyfile.txt"

@@ -1,3 +1,2 @@
 # Ignore everything except .gitkeep file
-secrets/*
-!secrets/.gitkeep
+secrets/keyfile.txt
