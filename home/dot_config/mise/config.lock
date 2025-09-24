@@ -11,17 +11,22 @@ version = "2.19.2"
 backend = "pipx:ansible-core[uvx_args=--with ansible]"
 
 [[tools.argocd]]
-version = "3.1.5"
+version = "3.1.7"
 backend = "aqua:argoproj/argo-cd"
 
+[tools.argocd.platforms.macos-arm64]
+checksum = "sha256:689850e474b48ac2aa283452290da6c4d556d153a591dd00fe4b18b57080e487"
+size = 210879106
+url = "https://github.com/argoproj/argo-cd/releases/download/v3.1.7/argocd-darwin-arm64"
+
 [[tools.aws-cli]]
-version = "2.30.0"
+version = "2.31.0"
 backend = "aqua:aws/aws-cli"
 
 [tools.aws-cli.platforms.macos-arm64]
-checksum = "blake3:a6c7ba7db19cf88c4f1d029be105f39f5212de0ecba46ad8928480a3fce7f006"
-size = 48083197
-url = "https://awscli.amazonaws.com/AWSCLIV2-2.30.0.pkg"
+checksum = "blake3:9e7e1264ba7f194eaff4bbe9af30980082fc5add11e29f46fa843a75b3a46d54"
+size = 48105702
+url = "https://awscli.amazonaws.com/AWSCLIV2-2.31.0.pkg"
 
 [[tools.bat]]
 version = "0.25.0"
@@ -32,16 +37,24 @@ version = "2024.08.24"
 backend = "asdf:bat-extras"
 
 [[tools.cargo-binstall]]
-version = "1.15.4"
+version = "1.15.5"
 backend = "aqua:cargo-bins/cargo-binstall"
+
+[tools.cargo-binstall.platforms.macos-arm64]
+checksum = "blake3:4eff2c4ed16a8864b20b55fbe855821e60dfb633c04e40ab67679a0639f08b2f"
+size = 6004395
+url = "https://github.com/cargo-bins/cargo-binstall/releases/download/v1.15.5/cargo-binstall-aarch64-apple-darwin.zip"
 
 [[tools."cargo:rustscan"]]
 version = "2.4.1"
 backend = "cargo:rustscan"
 
 [[tools.chezmoi]]
-version = "2.65.1"
+version = "2.65.2"
 backend = "ubi:twpayne/chezmoi"
+
+[tools.chezmoi.platforms.macos-arm64-chezmoi]
+checksum = "blake3:369649a853db70c99fa545652beacc81e02102b9c1511878a10fe1f54e89bf88"
 
 [[tools.copier]]
 version = "9.10.2"
@@ -52,8 +65,13 @@ version = "2.5.3"
 backend = "aqua:sigstore/cosign"
 
 [[tools.dagger]]
-version = "0.18.17"
+version = "0.18.19"
 backend = "aqua:dagger/dagger"
+
+[tools.dagger.platforms.macos-arm64]
+checksum = "sha256:1213e12d4133b00f48be7866c1552bbf3dd3e2c8bd000b6175f1877ed6220c91"
+size = 18689864
+url = "https://github.com/dagger/dagger/releases/download/v0.18.19/dagger_v0.18.19_darwin_arm64.tar.gz"
 
 [[tools.delta]]
 version = "0.18.2"
@@ -88,8 +106,13 @@ version = "1.11.4"
 backend = "aqua:gabrie30/ghorg"
 
 [[tools.git-cliff]]
-version = "2.10.0"
+version = "2.10.1"
 backend = "aqua:orhun/git-cliff"
+
+[tools.git-cliff.platforms.macos-arm64]
+checksum = "sha512:6d34cf358f956c34d64524bd8b1e04baf5045bda8fe21f12999ee361a1c98cad3487be621ce6d8d4f13fa25358a67a1bf90eb0ed4628511704ee3e96b9b0c2b3"
+size = 6252193
+url = "https://github.com/orhun/git-cliff/releases/download/v2.10.1/git-cliff-2.10.1-aarch64-apple-darwin.tar.gz"
 
 [[tools.glow]]
 version = "2.1.1"
@@ -104,17 +127,22 @@ version = "1.3.0"
 backend = "go:github.com/spf13/cobra-cli"
 
 [[tools.golangci-lint]]
-version = "2.4.0"
+version = "2.5.0"
 backend = "aqua:golangci/golangci-lint"
 
+[tools.golangci-lint.platforms.macos-arm64]
+checksum = "sha256:0b3cbdc2a2472f60b538ebccb1b2e1ae5d938a051c010591aa68c6efd3706672"
+size = 13629335
+url = "https://github.com/golangci/golangci-lint/releases/download/v2.5.0/golangci-lint-2.5.0-darwin-arm64.tar.gz"
+
 [[tools.hadolint]]
-version = "2.13.1"
+version = "2.14.0"
 backend = "aqua:hadolint/hadolint"
 
 [tools.hadolint.platforms.macos-arm64]
-checksum = "sha256:0a3eb44bb5e496184dbea71be142a9be8d70c11b48302ae851e6274ef09ae407"
-size = 100948440
-url = "https://github.com/hadolint/hadolint/releases/download/v2.13.1/hadolint-macos-arm64"
+checksum = "sha256:3625e2e9f43dcfe7bd38738a5f5520ed50ce39ed28485266e6803dd7bc197b10"
+size = 100982664
+url = "https://github.com/hadolint/hadolint/releases/download/v2.14.0/hadolint-macos-arm64"
 
 [[tools.helm]]
 version = "3.19.0"
@@ -130,12 +158,22 @@ version = "1.8.1"
 backend = "aqua:jqlang/jq"
 
 [[tools.k9s]]
-version = "0.50.9"
+version = "0.50.12"
 backend = "aqua:derailed/k9s"
 
+[tools.k9s.platforms.macos-arm64]
+checksum = "sha256:509f78bbceb1444fb397fae61586325ecfbc3bd6663e8490ba5c2599523771e5"
+size = 38406660
+url = "https://github.com/derailed/k9s/releases/download/v0.50.12/k9s_Darwin_arm64.tar.gz"
+
 [[tools.kube-linter]]
-version = "0.7.5"
+version = "0.7.6"
 backend = "aqua:stackrox/kube-linter"
+
+[tools.kube-linter.platforms.macos-arm64]
+checksum = "blake3:b207d6a48862190bbe57f7f2db763d566802adf36699fec099461d9ec44716ce"
+size = 47489170
+url = "https://github.com/stackrox/kube-linter/releases/download/v0.7.6/kube-linter-darwin_arm64"
 
 [[tools.kubectl]]
 version = "1.34.1"
@@ -154,13 +192,13 @@ version = "5.7.1"
 backend = "aqua:kubernetes-sigs/kustomize"
 
 [[tools.lazygit]]
-version = "0.55.0"
+version = "0.55.1"
 backend = "aqua:jesseduffield/lazygit"
 
 [tools.lazygit.platforms.macos-arm64]
-checksum = "sha256:a3679901c0618c906424c0f9cf49abb4b687b2c610f47ff344420b9a494becf4"
-size = 7597758
-url = "https://github.com/jesseduffield/lazygit/releases/download/v0.55.0/lazygit_0.55.0_darwin_arm64.tar.gz"
+checksum = "sha256:d5761da15dc95348e4d508ce3245a132a6129dbace866144b24591f2a5c73b8e"
+size = 7598349
+url = "https://github.com/jesseduffield/lazygit/releases/download/v0.55.1/lazygit_0.55.1_darwin_arm64.tar.gz"
 
 [[tools.lua]]
 version = "5.4.8"
@@ -188,15 +226,20 @@ version = "0.24.5.26"
 backend = "pipx:trash-cli"
 
 [[tools.restic]]
-version = "0.18.0"
+version = "0.18.1"
 backend = "aqua:restic/restic"
+
+[tools.restic.platforms.macos-arm64]
+checksum = "sha256:193fccc8bb4567b498923bc70261e104ff22be88016f0f108b035dad372ab711"
+size = 9768007
+url = "https://github.com/restic/restic/releases/download/v0.18.1/restic_0.18.1_darwin_arm64.bz2"
 
 [[tools.ripgrep]]
 version = "14.1.1"
 backend = "aqua:BurntSushi/ripgrep"
 
 [[tools.rust]]
-version = "1.89.0"
+version = "1.90.0"
 backend = "core:rust"
 
 [[tools.sd]]
@@ -224,16 +267,24 @@ version = "0.66.0"
 backend = "aqua:aquasecurity/trivy"
 
 [[tools.ubi]]
-version = "0.7.4"
+version = "0.8.0"
 backend = "aqua:houseabsolute/ubi"
+
+[tools.ubi.platforms.macos-arm64]
+checksum = "sha256:b2be722c39366ed745a2e96199f944bcd9bfd8ad6382612a815f6c20d36ba51b"
+size = 3512803
+url = "https://github.com/houseabsolute/ubi/releases/download/v0.8.0/ubi-macOS-arm64.tar.gz"
 
 [[tools."ubi:cantino/mcfly"]]
 version = "0.9.3"
 backend = "ubi:cantino/mcfly"
 
 [[tools."ubi:gokcehan/lf"]]
-version = "r37"
+version = "r38"
 backend = "ubi:gokcehan/lf"
+
+[tools."ubi:gokcehan/lf".platforms.macos-arm64-lf]
+checksum = "blake3:3279470a639d6fe2a6df7e7c7c77f7d04742abe17118125b3f218d3e73e62662"
 
 [[tools."ubi:kopia/kopia"]]
 version = "0.21.1"
@@ -248,20 +299,33 @@ version = "1.7.2"
 backend = "ubi:tealdeer-rs/tealdeer"
 
 [[tools.uv]]
-version = "0.8.17"
+version = "0.8.22"
 backend = "aqua:astral-sh/uv"
 
+[tools.uv.platforms.macos-arm64]
+checksum = "sha256:3f61099e261e449527141dbf125629fab33ad696468c8c90cebbac40185a306c"
+size = 18194566
+url = "https://github.com/astral-sh/uv/releases/download/0.8.22/uv-aarch64-apple-darwin.tar.gz"
+
 [[tools.velero]]
-version = "1.16.2"
+version = "1.17.0"
 backend = "aqua:vmware-tanzu/velero"
+
+[tools.velero.platforms.macos-arm64]
+checksum = "sha256:307df4e476aa7ea3b09446eb35512aa6cbf9d2dc1e6cd60fc08e9f31c32d17e1"
+size = 56672808
+url = "https://github.com/vmware-tanzu/velero/releases/download/v1.17.0/velero-v1.17.0-darwin-arm64.tar.gz"
 
 [[tools.yq]]
 version = "4.47.2"
 backend = "aqua:mikefarah/yq"
 
 [[tools.yt-dlp]]
-version = "2025.09.05"
+version = "2025.09.23"
 backend = "ubi:yt-dlp/yt-dlp"
+
+[tools.yt-dlp.platforms.macos-arm64-yt-dlp]
+checksum = "blake3:01d9c9fb35d0d49fad66d33154b73e972c8451e924f697a59cf64659b7090b27"
 
 [[tools.zoxide]]
 version = "0.9.8"
