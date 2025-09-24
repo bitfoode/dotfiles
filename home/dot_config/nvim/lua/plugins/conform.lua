@@ -24,7 +24,7 @@ return {
       formatters_by_ft = {
         lua = { "stylua" },
         python = { "ruff_organize_imports", "ruff_fix", "ruff_format" },
-        go = { "golangci-lint" },
+        go = { "golangci-lint", "gofumpt" },
         ["markdown"] = { "prettier", "markdownlint-cli2" },
         ["markdown.mdx"] = { "prettier", "markdownlint-cli2" },
       },

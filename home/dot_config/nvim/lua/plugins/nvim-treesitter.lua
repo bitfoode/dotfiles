@@ -31,6 +31,7 @@ return {
         "go",
         "gomod",
         "gotmpl",
+        "gowork",
         "json",
         "html",
         "hcl",
