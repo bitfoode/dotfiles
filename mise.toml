@@ -5,5 +5,11 @@ sops = "latest"
 [env]
 _.file = "secrets/env.json"
 
+[tasks.decrypt_inplace]
+run = 'chezmoi decrypt -o {{arg(name="file")}} {{arg(name="file")}}'
+
+[tasks.encrypt_inplace]
+run = 'chezmoi encrypt -o {{arg(name="file")}} {{arg(name="file")}}'
+
 [settings.sops]
 age_key_file = "./secrets/keyfile.txt"
