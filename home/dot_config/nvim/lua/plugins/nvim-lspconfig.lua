@@ -179,7 +179,6 @@ return {
         cssls = {},
         emmet_ls = {},
         eslint = {},
-        htmx = {},
         jinja_lsp = {
           filetypes = { "html", "jinja", "htmldjango" },
         },
