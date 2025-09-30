@@ -18,7 +18,11 @@ mkdir -p "$CONFIG_DIR"/{{ $shell }}/plugins
 # Generate completions
 {{ range $key, $value := $completions -}}
 {{ range $shell := $shells -}}
-{{ $key }} {{ $value.args }} {{ $shell }} > "$CONFIG_DIR"/{{ $shell }}/completions/_{{ $key }}.sh
+if command -v {{ $key }} 2>/dev/null; then
+  {{ $key }} {{ $value.args }} {{ $shell }} > "$CONFIG_DIR"/{{ $shell }}/completions/_{{ $key }}.sh
+else
+  echo "SHELL | Skip completion generation for {{ $key }}, not available"
+fi
 {{ end }}
 {{ end -}}
 echo "SHELL | Completions generation finished"
@@ -27,7 +31,11 @@ echo "SHELL | Completions generation finished"
 echo "SHELL | Install shell plugins"
 {{ range $key, $value := $plugins -}}
 {{ range $shell := $shells -}}
-{{ $key }} {{ $value.args }} {{ $shell }} > "$CONFIG_DIR"/{{ $shell }}/plugins/{{$key}}_generated.sh
+if command -v {{ $key }} 2>/dev/null; then
+  {{ $key }} {{ $value.args }} {{ $shell }} > "$CONFIG_DIR"/{{ $shell }}/plugins/{{ $key }}_generated.sh
+else
+  echo "SHELL | Skip plugin generation for {{ $key }}, not available"
+fi
 {{ end }}
 {{ end -}}
 echo "SHELL | Plugin installation finished"
