@@ -1,5 +1,5 @@
 #!/bin/bash
-{{ $installFlatpak := empty .flatpak -}}
+{{ $installFlatpak := .flatpak -}}
 {{ $packagesForAllSystems := .packages.all -}}
 {{ $packagesForHost := dict -}}
 {{ if hasKey .packages .host -}}
