@@ -24,7 +24,7 @@ return {
       { "<leader>wsb", "<cmd>Obsidian backlinks<CR>", desc = "Search Notes backinks" },
       { "<leader>wst", "<cmd>Obsidian tags<CR>", desc = "Search for tags" },
       { "<leader>wss", "<cmd>Obsidian search<CR>", desc = "Search in notes" },
-      { "<leader>wss", "<cmd>Obsidian qicke_switch<CR>", desc = "Search for notes" },
+      { "<leader>wss", "<cmd>Obsidian quick_switch<CR>", desc = "Search for notes" },
       { "<leader>wsl", "<cmd>Obsidian links<CR>", desc = "Search links in note" },
     },
     ---@module 'obsidian'
