@@ -56,7 +56,7 @@ if command -v mc &>/dev/null; then
   export MC_CONFIG_DIR=~/.config/mc
 fi
 
-if command -v mcfly &> /dev/null; then
+if command -v mcfly &>/dev/null; then
   export MCFLY_PATH=$(command -v mcfly)
   export MCFLY_INTERFACE_VIEW=bottom
   export MCFLY_PROMPT="❯"
@@ -65,8 +65,8 @@ if command -v mcfly &> /dev/null; then
   export MCFLY_KEY_SCHEME="vim"
 fi
 
-if command -v tealdeer &> /dev/null; then
-export TEALDEER_CONFIG_DIR="$XDG_CONFIG_HOME/tealdeer"
+if command -v tealdeer &>/dev/null; then
+  export TEALDEER_CONFIG_DIR="$XDG_CONFIG_HOME/tealdeer"
 fi
 
 if [ -x /opt/homebrew/bin/brew ]; then
