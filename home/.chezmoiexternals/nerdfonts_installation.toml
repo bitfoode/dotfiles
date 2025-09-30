@@ -1,7 +1,7 @@
 {{ $fontsDir := "" -}}
 {{ if eq .chezmoi.os "darwin" -}}
   {{ $fontsDir = "Library/Fonts/nerdfonts" -}}
-{{ else if .chezmoi.os "linux" -}}
+{{ else if eq .chezmoi.os "linux" -}}
   {{ $fontsDir = ".local/share/fonts/nerdfonts" -}}
 {{ end -}}
 
