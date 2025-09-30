@@ -11,5 +11,8 @@ run = 'chezmoi decrypt -o {{arg(name="file")}} {{arg(name="file")}}'
 [tasks.encrypt_inplace]
 run = 'chezmoi encrypt -o {{arg(name="file")}} {{arg(name="file")}}'
 
+[tasks.apply]
+run = "chezmoi apply --interactive --init"
+
 [settings.sops]
 age_key_file = "./secrets/keyfile.txt"
