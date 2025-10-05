@@ -4,10 +4,7 @@ packages:
       brews:
         - nvtop
         - sqlite
-        # podman dependencies
-        - podman
       casks:
-        - android-file-transfer
         - bitwarden
         - caffeine
         - db-browser-for-sqlite
@@ -15,19 +12,15 @@ packages:
         - libreoffice
         - libreoffice-language-pack
         - nextcloud
-        - obsidian
         - rustdesk
         - steam
         - vlc
-        # podman dependencies
-        - podman-desktop
+        - docker-desktop
   macdb:
     darwin:
       brews:
         - nvtop
         - sqlite
-        # podman dependencies
-        - podman
       casks:
         - amazon-workspaces
         - bitwarden
@@ -36,12 +29,10 @@ packages:
         - keepassxc
         - onedrive
         - visual-studio-code
-        # podman dependencies
-        - podman-desktop
+        - docker-desktop
   game:
     flatpak:
       - com.bitwarden.desktop
-      - org.ferdium.Ferdium
       - com.nextcloud.desktopclient.nextcloud
   all:
     darwin:
@@ -194,5 +185,4 @@ packages:
     flatpak:
       - org.wezfurlong.wezterm
       - com.bitwarden.desktop
-      - org.ferdium.Ferdium
       - com.nextcloud.desktopclient.nextcloud
