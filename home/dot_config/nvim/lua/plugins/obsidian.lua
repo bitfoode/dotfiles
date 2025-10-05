@@ -26,6 +26,9 @@ return {
       { "<leader>wss", "<cmd>Obsidian search<CR>", desc = "Search in notes" },
       { "<leader>wss", "<cmd>Obsidian quick_switch<CR>", desc = "Search for notes" },
       { "<leader>wsl", "<cmd>Obsidian links<CR>", desc = "Search links in note" },
+      { "<leader>wut", require("custom.umlauts").toggle, desc = "Toggle Umlaut substitution" },
+      { "<leader>wue", require("custom.umlauts").enable, desc = "Enable Umlaut substitution" },
+      { "<leader>wud", require("custom.umlauts").disable, desc = "Disable Umlaut substitution" },
     },
     ---@module 'obsidian'
     ---@type obsidian.config
@@ -215,6 +218,8 @@ return {
       -- Disable wraping of lines, that makes long table lines possible
       vim.o.wrap = false
       vim.o.fixeol = false
+
+      require("custom.umlauts").setup()
     end,
   },
 }
