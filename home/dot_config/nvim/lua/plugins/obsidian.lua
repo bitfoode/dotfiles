@@ -168,7 +168,7 @@ return {
           work_weekly = {
             notes_subdir = "work/weeklies",
             note_id_func = function(_, _)
-              return string.format("Weekly %s-W%s", os.date("%Y"), os.date("%V"))
+              return Obsidian.opts.note_id_func(string.format("Work Weekly %s-W%s", os.date("%Y"), os.date("%V")))
             end,
           },
           work_log = {
