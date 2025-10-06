@@ -183,6 +183,12 @@ return {
               return Obsidian.opts.note_id_func(title)
             end,
           },
+          person = {
+            notes_subdir = "persons",
+            note_id_func = function(title, _)
+              return Obsidian.opts.note_id_func(title)
+            end,
+          },
         },
       },
       attachments = {
