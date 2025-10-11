@@ -148,27 +148,36 @@ return {
           },
           schemas = require("schemastore").yaml.schemas(),
         },
-        basedpyright = {
+        pyrefly = {
           settings = {
-            basedpyright = {
-              -- Using Ruff's import organizer
-              disableOrganizeImports = true,
-              analysis = {
-                typeCheckingMode = "recommended",
-                autoImportCompletions = true,
-                autoSearchPaths = true,
-                diagnosticMode = "openFilesOnly",
-                useLibraryCodeForTypes = true,
-                diagnosticSeverityOverrides = {
-                  reportUnknownMemberType = false,
-                  reportMissingTypeStubs = false,
-                  reportUnusedCallResult = false,
-                  reportUnannotatedClassAttribute = false,
-                },
+            python = {
+              pyrefly = {
+                displayTypeErrors = "force-on",
               },
             },
           },
         },
+        -- basedpyright = {
+        --   settings = {
+        --     basedpyright = {
+        --       -- Using Ruff's import organizer
+        --       disableOrganizeImports = true,
+        --       analysis = {
+        --         typeCheckingMode = "recommended",
+        --         autoImportCompletions = true,
+        --         autoSearchPaths = true,
+        --         diagnosticMode = "openFilesOnly",
+        --         useLibraryCodeForTypes = true,
+        --         diagnosticSeverityOverrides = {
+        --           reportUnknownMemberType = false,
+        --           reportMissingTypeStubs = false,
+        --           reportUnusedCallResult = false,
+        --           reportUnannotatedClassAttribute = false,
+        --         },
+        --       },
+        --     },
+        --   },
+        -- },
         ruff = {
           settings = {
             configurationPreference = "filesystemFirst",
