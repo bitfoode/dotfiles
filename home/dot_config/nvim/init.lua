@@ -158,7 +158,22 @@ vim.opt.splitbelow = true
 vim.opt.spell = false
 vim.opt.spelllang = { "en_us", "de_de" }
 -- Toggle spell check
-vim.keymap.set("n", "<leader>tsc", "<cmd>set spell!<CR>", { desc = "Toggle [s]pell [c]heck" })
+vim.keymap.set("n", "<leader>tsc", function()
+  local win = vim.api.nvim_get_current_win()
+  local opts = { win = win, scope = "local" }
+
+  local current_state = vim.api.nvim_get_option_value("spell", opts)
+  vim.api.nvim_set_option_value("spell", not current_state, opts)
+
+  -- Check what the new state is and set the state for printing
+  local new_state = vim.api.nvim_get_option_value("spell", opts)
+  local state = "enabled"
+  if not new_state then
+    state = "disabled"
+  end
+
+  vim.notify("Spell check is " .. state .. "!", vim.log.levels.INFO)
+end, { desc = "Toggle [s]pell [c]heck" })
 
 -- Sets how neovim will display certain whitespace characters in the editor.
 --  See `:help 'list'`
