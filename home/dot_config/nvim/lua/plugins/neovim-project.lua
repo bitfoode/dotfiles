@@ -18,7 +18,6 @@ return {
     priority = 100,
 
     config = function()
-      vim.notify = require("notify")
       --- Path to the cache file.
       local cache_file = vim.fn.stdpath("cache") .. "/neovim-projects-cache.json"
       --- Cache validity duration in days.
@@ -29,7 +28,7 @@ return {
       --- Checks if the cache file is still valid based on its modification time.
       --- @return boolean valid True if cache is valid, false otherwise.
       local function is_cache_valid()
-        local stat = vim.loop.fs_stat(cache_file)
+        local stat = vim.uv.fs_stat(cache_file)
         if not stat then
           return false
         end
@@ -55,7 +54,7 @@ return {
       end
 
       --- Writes the list to the cache file.
-      --- @param data table The list of items to cache.
+      --- @param projects table The list of items to cache.
       local function write_cache(projects)
         local file = io.open(cache_file, "w")
         if file then
@@ -74,7 +73,6 @@ return {
       --- @param max_depth integer  # Maximum folder depth to traverse (0 = root only, 1 = root + immediate subfolders, etc.).
       --- @return string[]  # A list of `.git` directory paths found.
       local function find_git_dirs(roots, max_depth)
-        local uv = vim.loop -- libuv bindings
         local git_dirs = {}
 
         if type(roots) == "string" then
@@ -90,13 +88,13 @@ return {
             return -- stop if depth exceeded
           end
 
-          local handle = uv.fs_scandir(dir)
+          local handle = vim.uv.fs_scandir(dir)
           if not handle then
             return
           end
 
           while true do
-            local name, typ = uv.fs_scandir_next(handle)
+            local name, typ = vim.uv.fs_scandir_next(handle)
             if not name then
               break
             end
@@ -122,7 +120,7 @@ return {
       --- Gets the list of items, using the cache if valid unless forced.
       --- @param force_refresh boolean|nil If true, forces regeneration of the list.
       --- @return table list The retrieved or newly generated list.
-      function get_projects(force_refresh)
+      local function get_projects(force_refresh)
         if not force_refresh and is_cache_valid() then
           local cache = read_cache()
           if cache then
@@ -163,13 +161,15 @@ return {
         -- get_projects(true)
         -- vim.notify("Cache manually refreshed! Please restart neovim.", vim.log.levels.INFO)
       end, {})
-
-      vim.keymap.set(
-        "n",
-        "<leader>fp",
-        "<cmd>NeovimProjectDiscover<CR>",
-        { silent = true, noremap = true, desc = "Search for projects and restore its session" }
-      )
     end,
+    keys = {
+      {
+        "<leader>fp",
+        function()
+          require("neovim-project.project").discover_projects()
+        end,
+        desc = "Search for projects and restore its session",
+      },
+    },
   },
 }
