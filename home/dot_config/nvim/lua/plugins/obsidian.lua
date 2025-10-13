@@ -57,46 +57,49 @@ return {
       note_id_func = function(title)
         return title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):gsub("%-%-", "-"):lower()
       end,
-      note_frontmatter_func = function(note)
-        -- Add the title of the note as an alias.
-        local title = note.title
-        if title ~= nil and title ~= "" then
-          if string.byte(title, 1) > 224 then
-            title = title:sub(6)
-          end
-          note:add_alias(title)
-        end
-
-        if not note:get_field("creation_date") then
-          note:add_field("creation_date", tostring(os.date("%Y-%m-%d %H:%M")))
-        end
-
-        if not note:get_field("summary") then
-          vim.ui.input({ prompt = "Short summary for this note:" }, function(input)
-            if input == nil then
-              input = ""
+      frontmatter = {
+        enabled = true,
+        func = function(note)
+          -- Add the title of the note as an alias.
+          local title = note.title
+          if title ~= nil and title ~= "" then
+            if string.byte(title, 1) > 224 then
+              title = title:sub(6)
             end
-            if input == "" then
-              vim.notify("Empty summary given", vim.log.levels.WARN)
-            end
-            note:add_field("summary", input)
-          end)
-        end
-        -- add last_modified
-        note:add_field("last_modified", tostring(os.date("%Y-%m-%d %H:%M")))
-
-        local out = { id = note.id, aliases = note.aliases, tags = note.tags }
-
-        -- `note.metadata` contains any manually added fields in the frontmatter.
-        -- So here we just make sure those fields are kept in the frontmatter.
-        if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
-          for k, v in pairs(note.metadata) do
-            out[k] = v
+            note:add_alias(title)
           end
-        end
 
-        return out
-      end,
+          if not note:get_field("creation_date") then
+            note:add_field("creation_date", tostring(os.date("%Y-%m-%d %H:%M")))
+          end
+
+          if not note:get_field("summary") then
+            vim.ui.input({ prompt = "Short summary for this note:" }, function(input)
+              if input == nil then
+                input = ""
+              end
+              if input == "" then
+                vim.notify("Empty summary given", vim.log.levels.WARN)
+              end
+              note:add_field("summary", input)
+            end)
+          end
+          -- add last_modified
+          note:add_field("last_modified", tostring(os.date("%Y-%m-%d %H:%M")))
+
+          local out = { id = note.id, aliases = note.aliases, tags = note.tags }
+
+          -- `note.metadata` contains any manually added fields in the frontmatter.
+          -- So here we just make sure those fields are kept in the frontmatter.
+          if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
+            for k, v in pairs(note.metadata) do
+              out[k] = v
+            end
+          end
+
+          return out
+        end,
+      },
       templates = {
         folder = "resources/templates",
         substitutions = {
@@ -220,11 +223,54 @@ return {
       },
     },
     init = function()
-      vim.o.conceallevel = 2
-      -- Disable wraping of lines, that makes long table lines possible
-      vim.o.wrap = false
-      vim.o.fixeol = false
+      local obsidian_au_group = vim.api.nvim_create_augroup("Obsidian", { clear = true })
+      -- Create an autocommand that triggers when a buffer's filetype is set
+      vim.api.nvim_create_autocmd("FileType", {
+        group = obsidian_au_group,
+        -- Only apply this autocommand to Markdown files
+        pattern = "markdown",
 
+        -- Define the function that runs when the autocommand triggers
+        callback = function(args)
+          -- 'args.buf' gives the numeric buffer handle for the current buffer
+          local buf = args.buf
+
+          -- Get the full path of the file associated with this buffer
+          -- e.g., "/foo/bar/baz/notes/example.md"
+          local filepath = vim.api.nvim_buf_get_name(buf)
+
+          -- Define the base directory we care about
+          local target_dir = Obsidian.workspace.path.filename
+
+          -- Normalize the path using Neovim’s built-in function wrapper (vim.fn)
+          -- ':p' expands to an absolute, normalized path
+          -- This ensures things like "./file.md" or "~/file.md" become full paths
+          local normalized = vim.fn.fnamemodify(filepath, ":p")
+
+          -- Check if the normalized path starts with "/foo/bar/baz/"
+          -- '^' anchors the match to the beginning of the string
+          -- 'vim.pesc()' escapes special regex characters safely in the path
+          if normalized:find("^" .. vim.pesc(target_dir) .. "/") then
+            -- 'vim.bo' gives access to buffer-local options
+            -- Setting these options affects only this buffer
+            vim.api.nvim_set_option_value("fixeol", true, { scope = "local", buf = buf }) -- Ensure a newline is added at end of file
+
+            -- Window-local option (conceallevel)
+            local win = vim.api.nvim_get_current_win()
+            vim.api.nvim_set_option_value("wrap", true, { scope = "local", win = win }) -- Enable line wrapping for long lines
+            vim.api.nvim_set_option_value("conceallevel", 2, { scope = "local", win = win })
+
+            -- Buffer-local keymap to toggle wrap
+            vim.keymap.set("n", "<leader>tw", function()
+              local current_wrap_value = vim.api.nvim_get_option_value("wrap", { scope = "local", win = win })
+              vim.api.nvim_set_option_value("wrap", not current_wrap_value, { scope = "local", win = win })
+              vim.notify(
+                "Wrap is now " .. tostring(vim.api.nvim_get_option_value("wrap", { scope = "local", win = win }))
+              )
+            end, { buffer = buf, desc = "Toggle wrap for this buffer" })
+          end
+        end,
+      })
       require("custom.umlauts").setup()
     end,
   },
