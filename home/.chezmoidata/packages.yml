@@ -27,7 +27,6 @@ packages:
         - caffeine
         - db-browser-for-sqlite
         - keepassxc
-        - onedrive
         - visual-studio-code
         - docker-desktop
   game:
