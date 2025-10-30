@@ -1,5 +1,6 @@
 [tools]
 chezmoi = "latest"
+neovim = "latest"
 sops = "latest"
 
 [env]
