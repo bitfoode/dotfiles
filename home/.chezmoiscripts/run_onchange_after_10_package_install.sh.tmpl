@@ -9,19 +9,19 @@
 {{ if eq .chezmoi.os "darwin" -}}
   {{ if $packagesForAllSystems.darwin.brews -}}
     echo "PACKAGES | Installing packages with brew"
-    brew install --quiet {{ $packagesForAllSystems.darwin.brews | join " " }}
+    /opt/homebrew/bin/brew install --quiet {{ $packagesForAllSystems.darwin.brews | join " " }}
   {{ end -}}
   {{ if $packagesForHost.darwin.brews -}}
     echo "PACKAGES | Installing host specific packages with brew"
-    brew install --quiet {{ $packagesForHost.darwin.brews | join " " }}
+    /opt/homebrew/bin/brew install --quiet {{ $packagesForHost.darwin.brews | join " " }}
   {{ end -}}
   {{ if $packagesForAllSystems.darwin.casks -}}
     echo "PACKAGES | Installing cask packages with brew"
-    brew install --quiet --cask {{ $packagesForAllSystems.darwin.casks | join " " }}
+    /opt/homebrew/bin/brew install --quiet --cask {{ $packagesForAllSystems.darwin.casks | join " " }}
   {{ end -}}
   {{ if $packagesForHost.darwin.casks -}}
     echo "PACKAGES | Installing host specific cask packages with brew"
-    brew install --quiet --cask {{ $packagesForHost.darwin.casks | join " " }}
+    /opt/homebrew/bin/brew install --quiet --cask {{ $packagesForHost.darwin.casks | join " " }}
   {{ end -}}
 {{ else if eq .chezmoi.os "linux" -}}
   {{ if eq .chezmoi.osRelease.id "fedora" -}}
