@@ -497,6 +497,27 @@ return {
           Snacks.terminal.open(cmd, { win = { border = "rounded", title = title, title_pos = "center", height = 0.9 } })
         end,
       },
+      {
+        "<leader>to",
+        desc = "Start OpenCode as floating Terminal",
+        function()
+          local cmd = "opencode"
+          local title = "opencode"
+          if vim.fn.executable(cmd) ~= 1 then
+            cmd = [[
+	            printf "opencode not installed\n"
+	            printf "Press any key to exit."
+	            read ans
+	            exit 0
+                  ]]
+            title = "opencode cli not found!"
+          end
+          Snacks.terminal.toggle(
+            cmd,
+            { win = { border = "rounded", title = title, title_pos = "center", height = 0.9 } }
+          )
+        end,
+      },
     },
   },
 }
