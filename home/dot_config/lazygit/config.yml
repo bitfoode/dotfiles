@@ -3,9 +3,9 @@ os:
   editPreset: nvim
 git:
   overrideGpg: true
-  paging:
-    colorArg: always
-    pager: delta --features=lazygit
+  pagers:
+    - colorArg: always
+      pager: delta --features=lazygit
 customCommands:
   # retrieved from: https://github.com/jesseduffield/lazygit/wiki/Custom-Commands-Compendium#conventional-commit
   - key: "<c-v>"
