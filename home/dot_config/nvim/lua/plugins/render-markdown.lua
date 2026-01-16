@@ -21,6 +21,9 @@ return {
         enabled = true,
       },
     },
+    latex = {
+      enabled = false,
+    },
   },
   keys = {
     {
