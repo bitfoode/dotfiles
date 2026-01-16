@@ -229,7 +229,7 @@ return {
         },
       },
       attachments = {
-        img_folder = "resources/images",
+        folder = "resources/images",
       },
       callbacks = {
         post_set_workspace = function(workspace)
