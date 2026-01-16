@@ -29,6 +29,34 @@ return {
       { "<leader>wut", require("custom.umlauts").toggle, desc = "Toggle Umlaut substitution" },
       { "<leader>wue", require("custom.umlauts").enable, desc = "Enable Umlaut substitution" },
       { "<leader>wud", require("custom.umlauts").disable, desc = "Disable Umlaut substitution" },
+      {
+        "<leader>wft",
+        function()
+          if vim.b.obsidian_frontmatter_enabled == nil then
+            vim.b.obsidian_frontmatter_enabled = true
+          end
+          vim.b.obsidian_frontmatter_enabled = not vim.b.obsidian_frontmatter_enabled
+          local state = vim.b.obsidian_frontmatter_enabled and "enabled" or "disabled"
+          vim.notify("Frontmatter manipulation " .. state, vim.log.levels.INFO)
+        end,
+        desc = "Toggle frontmatter manipulation",
+      },
+      {
+        "<leader>wfe",
+        function()
+          vim.b.obsidian_frontmatter_enabled = true
+          vim.notify("Frontmatter manipulation enabled", vim.log.levels.INFO)
+        end,
+        desc = "Enable frontmatter manipulation",
+      },
+      {
+        "<leader>wfd",
+        function()
+          vim.b.obsidian_frontmatter_enabled = false
+          vim.notify("Frontmatter manipulation disabled", vim.log.levels.INFO)
+        end,
+        desc = "Disable frontmatter manipulation",
+      },
     },
     ---@module 'obsidian'
     ---@type obsidian.config
@@ -58,7 +86,13 @@ return {
         return title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):gsub("%-%-", "-"):lower()
       end,
       frontmatter = {
-        enabled = true,
+        enabled = function(_)
+          -- Check if frontmatter manipulation is enabled for this buffer
+          if vim.b.obsidian_frontmatter_enabled or vim.b.obsidian_frontmatter_enabled == nil then
+            return true
+          end
+          return false
+        end,
         func = function(note)
           -- Add the title of the note as an alias.
           local title = note.title
