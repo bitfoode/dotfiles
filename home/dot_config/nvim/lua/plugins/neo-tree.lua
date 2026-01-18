@@ -23,6 +23,9 @@ return {
             visible = true,
             hide_dotfiles = false,
             hide_gitignored = false,
+            ignore_files = {
+              ".gitignore",
+            },
           },
           follow_current_file = {
             enabled = true,
