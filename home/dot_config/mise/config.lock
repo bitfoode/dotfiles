@@ -59,11 +59,11 @@ size = 5948102
 url = "https://github.com/cargo-bins/cargo-binstall/releases/download/v1.16.6/cargo-binstall-aarch64-apple-darwin.zip"
 
 [[tools.chezmoi]]
-version = "2.68.0"
+version = "2.69.3"
 backend = "ubi:twpayne/chezmoi"
 
 [tools.chezmoi.platforms.macos-arm64-chezmoi]
-checksum = "blake3:04c9a005ce1dad73d19d3d98ea3daedba7788a326d9873d189e7f5fb5190e819"
+checksum = "blake3:89f72fdbd603107a44283b945b08e8f735848d25e349391a5da54e09ad862c75"
 
 [[tools.copier]]
 version = "9.11.1"
