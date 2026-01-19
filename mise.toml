@@ -22,5 +22,8 @@ run = "chezmoi apply --interactive --init"
 description = "Run chezmoi diff"
 run = "chezmoi diff"
 
+[hooks]
+enter = '[[ "$(git config core.hooksPath)" == ".githooks" ]] || git config core.hooksPath .githooks'
+
 [settings.sops]
 age_key_file = "./secrets/keyfile.txt"

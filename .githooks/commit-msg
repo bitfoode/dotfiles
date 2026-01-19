@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+#
+# commit-msg hook to enforce conventional commit format
+# https://www.conventionalcommits.org/
+#
+# Format: <type>(<scope>)!: <description>
+#   - type: required (feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert)
+#   - scope: optional, in parentheses
+#   - !: optional, indicates breaking change
+#   - description: required, starts after ": "
+#
+
+set -euo pipefail
+
+COMMIT_MSG_FILE="$1"
+COMMIT_MSG=$(head -n1 "$COMMIT_MSG_FILE")
+
+# Skip merge commits and fixup/squash commits
+if [[ "$COMMIT_MSG" =~ ^(Merge|Revert|fixup!|squash!|amend!) ]]; then
+    exit 0
+fi
+
+# Conventional commit types (based on cliff.toml config)
+TYPES="feat|fix|docs|doc|style|refactor|perf|test|build|ci|chore|revert"
+
+# Regex pattern for conventional commits
+# Format: type(scope)!: description
+# - type: required
+# - (scope): optional
+# - !: optional (breaking change indicator)
+# - :: required separator
+# - description: required (can start with gitmoji)
+PATTERN="^(${TYPES})(\([a-zA-Z0-9_\-\.]+\))?(!)?: .+"
+
+if [[ ! "$COMMIT_MSG" =~ $PATTERN ]]; then
+    echo "ERROR: Commit message does not follow Conventional Commits format."
+    echo ""
+    echo "Your message:"
+    echo "  $COMMIT_MSG"
+    echo ""
+    echo "Expected format:"
+    echo "  <type>(<scope>): <description>"
+    echo ""
+    echo "Examples:"
+    echo "  feat: add user authentication"
+    echo "  fix(api): resolve null pointer exception"
+    echo "  feat(ui)!: redesign navigation (breaking change)"
+    echo "  docs: update README installation steps"
+    echo ""
+    echo "Valid types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert"
+    echo ""
+    echo "See: https://www.conventionalcommits.org/"
+    exit 1
+fi
+
+# Validate description is not empty and has meaningful content
+DESCRIPTION=$(echo "$COMMIT_MSG" | sed -E "s/^(${TYPES})(\([a-zA-Z0-9_\-\.]+\))?(!)?: //")
+if [[ -z "$DESCRIPTION" || ${#DESCRIPTION} -lt 3 ]]; then
+    echo "ERROR: Commit description is too short (minimum 3 characters)."
+    echo ""
+    echo "Your description: '$DESCRIPTION'"
+    exit 1
+fi
+
+exit 0
