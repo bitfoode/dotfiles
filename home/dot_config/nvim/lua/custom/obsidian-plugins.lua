@@ -83,4 +83,87 @@ function M.get_date_of_weekday(day)
   return os.time({ day = (today.day - offset_to_first_day_of_week) + day, month = today.month, year = today.year })
 end
 
+--- Insert a meeting template at the current cursor position.
+---
+--- Prompts the user for a meeting title and attendees, then inserts a
+--- formatted meeting template into the current buffer. The template includes
+--- sections for attendees (as a markdown list), notes, and next steps.
+---
+--- The function uses `vim.ui.input` for prompts, which can be enhanced by
+--- plugins like dressing.nvim or noice.nvim for a better UI experience.
+---
+--- @usage
+--- -- Bind to a keymap in your config:
+--- vim.keymap.set("n", "<leader>im", insert_meeting_template, {
+---   desc = "Insert meeting template",
+--- })
+---
+--- @example
+--- -- Input:
+--- -- Title: "Sprint Planning"
+--- -- Attendees: "John, Jane, Bob"
+---
+--- -- Output:
+--- -- ## 📆 Sprint Planning
+--- --
+--- -- ### 👥 Attendees
+--- --
+--- -- - John
+--- -- - Jane
+--- -- - Bob
+--- --
+--- -- ### 📔 Notes
+--- --
+--- -- #### ↪️ Next steps
+---
+--- @return nil
+--- @see vim.ui.input
+--- @see vim.api.nvim_buf_set_linesfunction
+function M.insert_meeting_template()
+  vim.ui.input({ prompt = "Meeting title: " }, function(title)
+    if not title then
+      return -- User cancelled
+    end
+    if title == "" then
+      title = "Meeting Title"
+    end
+    vim.ui.input({ prompt = "Attendees (comma separated): " }, function(attendees_input)
+      if not attendees_input then
+        return -- User cancelled
+      end
+      -- Build attendees list
+      local attendees_lines = {}
+      if attendees_input ~= "" then
+        for attendee in string.gmatch(attendees_input, "([^,]+)") do
+          local trimmed = attendee:match("^%s*(.-)%s*$") -- Trim whitespace
+          if trimmed ~= "" then
+            table.insert(attendees_lines, "- " .. trimmed)
+          end
+        end
+      end
+      local template = {
+        "",
+        "### 📆 " .. title,
+        "",
+        "#### 👥 Attendees",
+        "",
+      }
+      -- Add attendees
+      for _, line in ipairs(attendees_lines) do
+        table.insert(template, line)
+      end
+      -- Add rest of template
+      table.insert(template, "")
+      table.insert(template, "#### 📔 Notes")
+      table.insert(template, "")
+      table.insert(template, "##### ↪️ Next steps")
+      table.insert(template, "")
+      local row = vim.api.nvim_win_get_cursor(0)[1]
+      vim.api.nvim_buf_set_lines(0, row, row, false, template)
+      -- Move cursor to Notes section
+      local notes_line = row + 7 + #attendees_lines
+      vim.api.nvim_win_set_cursor(0, { notes_line, 0 })
+    end)
+  end)
+end
 return M

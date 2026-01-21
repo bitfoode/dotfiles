@@ -29,6 +29,7 @@ return {
       { "<leader>wut", require("custom.umlauts").toggle, desc = "Toggle Umlaut substitution" },
       { "<leader>wue", require("custom.umlauts").enable, desc = "Enable Umlaut substitution" },
       { "<leader>wud", require("custom.umlauts").disable, desc = "Disable Umlaut substitution" },
+      { "<leader>wim", require("custom.obsidian-plugins").insert_meeting_template, desc = "Insert meeting template" },
       {
         "<leader>wft",
         function()
